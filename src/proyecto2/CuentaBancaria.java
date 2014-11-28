@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package proyecto2;
+import java.time.Instant;
+import java.util.Date;
 
 /**
  *
@@ -14,13 +16,19 @@ public class CuentaBancaria {
     private int numero;
     private double tasaInteres, saldo;
     private boolean activa;
+    private Date fechaCreacion;
 
-    public CuentaBancaria(String name, String tipo, int numero, double tasaInteres) {
+    public CuentaBancaria(String name, String tipo, int numero) {
         this.name = name;
         this.tipo = tipo;
         this.numero = numero;
-        this.tasaInteres = tasaInteres;
+        switch(tipo){
+            case "PLANILLA": tasaInteres=0; break;
+            case "NORMAL": tasaInteres=0.02; break;
+            case "VIP": tasaInteres=0.04; break;
+        }
         saldo = 500;
+        fechaCreacion = Date.from(Instant.now());
         activa = true;
     }
     
@@ -33,10 +41,20 @@ public class CuentaBancaria {
         }
     }
     
+    public boolean retirarSaldo(double monto){
+        boolean retirado = false;
+        if(monto<saldo){
+            saldo-=monto;
+            retirado = true;
+        }
+        return retirado;
+    }
+    
     /*Funciones Set*/
     public void setSaldo(double saldo){
         this.saldo = saldo;
     }
+    /*-----------------*/
     
     /*Funciones Get*/
     public int getNum(){
@@ -45,5 +63,15 @@ public class CuentaBancaria {
     
     public double getSaldo(){
         return saldo;
+    }
+    
+    public boolean getState(){
+        return activa;
+    }
+    /*-----------------*/
+    
+    @Override
+    public String toString(){
+        return numero + " - " + name + " - " + saldo + " - " + tipo + " - " + fechaCreacion.toString();
     }
 }

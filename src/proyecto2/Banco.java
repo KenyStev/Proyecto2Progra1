@@ -14,8 +14,9 @@ import java.util.Scanner;
 public class Banco {
     private Scanner scan = new Scanner(System.in);
     private CuentaBancaria cuentas[];
-    private Usuario users[];
+    private Usuario users[]; //Se pueden eliminar usuarios?
     private Usuario activo;
+    private int counterOfaccounts;
 
     public Banco() {
         this.activo = null;
@@ -30,11 +31,11 @@ public class Banco {
         String pass= scan.next();
         
         for (Usuario usuario : users) {
-//            if(usuario != null && usuario.getNombre().equals(user) 
-//                    && usuario.getPassword().equals(pass)){
+            if(usuario != null && usuario.getNombre().equals(user) 
+                    && usuario.getPassword().equals(pass)){
                 activo = usuario;
                 break;
-//            }
+            }
         }
         if(activo==null){
             System.out.println("Usuario o contrasenia Incorrecta!");
