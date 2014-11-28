@@ -19,6 +19,8 @@ public class CuentaBancaria {
     private Date fechaCreacion;
     private int retirosHechos=0, depositosHechos=0, transHechas=0;
     private double montoRetiros=0, montoDepositos=0, montoTrans=0;
+    
+    private static String PLANILLA="PLANILLA", NORMAL="NORMAL", VIP="VIP";
 
     public CuentaBancaria(String name, String tipo, int numero) {
         this.name = name;
