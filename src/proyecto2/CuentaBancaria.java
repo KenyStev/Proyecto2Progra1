@@ -17,6 +17,8 @@ public class CuentaBancaria {
     private double tasaInteres, saldo;
     private boolean activa;
     private Date fechaCreacion;
+    private int retirosHechos=0, depositosHechos=0, transHechas=0;
+    private double montoRetiros=0, montoDepositos=0, montoTrans=0;
 
     public CuentaBancaria(String name, String tipo, int numero) {
         this.name = name;
@@ -27,27 +29,64 @@ public class CuentaBancaria {
             case "NORMAL": tasaInteres=0.02; break;
             case "VIP": tasaInteres=0.04; break;
         }
-        saldo = 500;
+        saldo = 500; //cuenta como deposito?
         fechaCreacion = Date.from(Instant.now());
         activa = true;
     }
-    
-    public void addSaldo(double saldo){
+    /**
+     * Agrega saldo a la cuenta bancaria
+     * @param monto
+     */
+    public void addSaldo(double monto){
         if(activa){
-         this.saldo+=saldo;   
+         this.saldo+=monto;
+         montoDepositos+=monto;
         }else{
-            this.saldo=(saldo-(saldo*0.2));
+            this.saldo+=(monto-(monto*0.2));
+            montoDepositos+=(monto-(monto*0.2));
             activa = true;
         }
+        depositosHechos++;
     }
     
+    /**
+     * Retira el monto dado de la centa siempre que sea menor
+     * @param monto
+     * @return true if was removed else false
+     */
     public boolean retirarSaldo(double monto){
-        boolean retirado = false;
-        if(monto<saldo){
+        boolean retirado = validarRetiro(monto);
+        if(retirado){
             saldo-=monto;
-            retirado = true;
+            retirosHechos++;
+            montoRetiros+=monto;
         }
         return retirado;
+    }
+    
+    /**
+     * 
+     * @param monto
+     * @param depositTo
+     * @return 
+     */
+    public boolean transferencia(double monto, CuentaBancaria depositTo){
+        boolean state = retirarSaldo(monto);
+        if(state){
+            depositTo.addSaldo(monto);
+            transHechas++;
+            montoTrans+=monto;
+        }
+        return state;
+    }
+    
+    /**
+     * 
+     * @param monto
+     * @return 
+     */
+    public boolean validarRetiro(double monto){
+        return monto<saldo;
     }
     
     /*Funciones Set*/
@@ -68,8 +107,36 @@ public class CuentaBancaria {
     public boolean getState(){
         return activa;
     }
+    
+    public int getRetirosHechos(){
+        return retirosHechos;
+    }
+    
+    public int getDepositosHechos(){
+        return depositosHechos;
+    }
+    
+    public int getTransHechas(){
+        return transHechas;
+    }
+    
+    public double getMontoRetirosHechos(){
+        return montoRetiros;
+    }
+    
+    public double getMontoDepositosHechos(){
+        return montoDepositos;
+    }
+    
+    public double getMontoTransHechas(){
+        return montoTrans;
+    }
     /*-----------------*/
     
+    /**
+     * Retorna los datos de la cuenta en el orden:
+     * @return numero - name - saldo - tipo - fechaCreacion
+     */
     @Override
     public String toString(){
         return numero + " - " + name + " - " + saldo + " - " + tipo + " - " + fechaCreacion.toString();
