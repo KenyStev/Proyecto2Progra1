@@ -25,30 +25,35 @@ public class Banco {
         users[counterOfUsers++] = new Usuario("admin@bank.com", "soyeladmin", "Keny", "Administrador"); //Crear variables static del tipo deusuario en class usuario.
     }
     
-    public void menu(){
-        System.out.println("*****   MENU BANCO   *****");
-        System.out.printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s: ",
+    public int menu(){
+        System.out.println("\n*****   MENU BANCO   *****");
+        System.out.printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s: ",
                 "1- Agregar una cuenta.","2- Depositar en cuenta.","3- Retirar de Cuenta.",
                 "4- Registrar Intereses.","5- Transferencia a Terceros.","6- Desactivar cuentas.",
-                "7- Cancelar Cuenta.","8- Crear Usuarios","9- Reportes","10- Cerrar Sesión","11- Salir");
+                "7- Cancelar Cuenta.","8- Crear Usuarios","9- Reportes","10- Cerrar Sesión","11- Salir",
+                "Escoja su Opcion: ");
+        return scan.nextInt();
     }
     
-    public void login(){
+    public boolean login(){
+        boolean state = false;
         System.out.print("Ingrese nombre de Usuario: ");
         String user= scan.next();
         System.out.print("Ingrese pasword: ");
         String pass= scan.next();
         
         for (Usuario usuario : users) {
-            if(usuario != null && usuario.getNombre().equals(user) 
+            if(usuario != null && usuario.getEmail().equals(user) 
                     && usuario.getPassword().equals(pass)){
                 activo = usuario;
+                state = true;
                 break;
             }
         }
-        if(activo==null){
-            System.out.println("Usuario o contrasenia Incorrecta!");
-        }
+        return state;
+//        if(activo==null){
+//            System.out.println("Usuario o contrasenia Incorrecta!");
+//        }
     }
     
     public void logout(){

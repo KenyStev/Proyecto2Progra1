@@ -22,6 +22,12 @@ public class CuentaBancaria {
     
     private static String PLANILLA="PLANILLA", NORMAL="NORMAL", VIP="VIP";
 
+    /**
+     * Construye un nuevo objeto de tipo CuentaBancaria con sus datos especificos
+     * @param name nombre del duenio de la cuenta
+     * @param tipo tipo de la cuenta 
+     * @param numero 
+     */
     public CuentaBancaria(String name, String tipo, int numero) {
         this.name = name;
         this.tipo = tipo;
@@ -35,6 +41,7 @@ public class CuentaBancaria {
         fechaCreacion = Date.from(Instant.now());
         activa = true;
     }
+    
     /**
      * Agrega saldo a la cuenta bancaria
      * @param monto
