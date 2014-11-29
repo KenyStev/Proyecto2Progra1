@@ -35,6 +35,11 @@ public class Banco {
         return scan.nextInt();
     }
     
+    /**
+     * Verifica que exista un usuario con el nombre y contrasenias dadas
+     * y si lo hay, entonces hace el login
+     * @return true if was logged or false if wasn't logged
+     */
     public boolean login(){
         boolean state = false;
         System.out.print("Ingrese nombre de Usuario: ");
@@ -51,12 +56,41 @@ public class Banco {
             }
         }
         return state;
-//        if(activo==null){
-//            System.out.println("Usuario o contrasenia Incorrecta!");
-//        }
     }
     
+    /**
+     * Cierra sesion que esta abierta con el perfil de usuario activo
+     */
     public void logout(){
+        reemplazarUser();
         activo = null;
+    }
+    
+    /**
+     * Valida que la cuenta exista en el arreglo de cuentas
+     * @param numero
+     * @return 
+     */
+    public boolean validarCuenta(int numero){
+        boolean state = false;
+        for (CuentaBancaria cuenta : cuentas) {
+            if(cuenta.validarCuenta(numero)){
+                state=true;
+                break;
+            }
+        }
+        return state;
+    }
+    
+    /**
+     * 
+     */
+    public void reemplazarUser(){
+        for (int i = 0; i < users.length; i++) {
+            if(activo.getEmail().equals(users[i].getEmail())){
+                users[i] = activo;
+                break;
+            }
+        }
     }
 }

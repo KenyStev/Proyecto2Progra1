@@ -98,6 +98,15 @@ public class CuentaBancaria {
         return monto<saldo;
     }
     
+    /**
+     * Valida que el numero de la cuenta sea el mismo
+     * @param numero
+     * @return 
+     */
+    public boolean validarCuenta(int numero){
+        return this.numero==numero;
+    }
+    
     /*Funciones Set*/
     public void setSaldo(double saldo){
         this.saldo = saldo;
