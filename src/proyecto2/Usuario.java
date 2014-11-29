@@ -62,13 +62,31 @@ public class Usuario {
     public boolean pass(){
       Scanner scan = new Scanner(System.in);
       boolean access=false;
-      String pass;
      System.out.print("Ingrese su password: ");
-                      pass = scan.next();
+     String pass = scan.next();
      if(pass.equals(password)){
      access = true;
      }
      return access;                
+    }
+    
+    public boolean emailPass(){
+    Scanner scan = new Scanner(System.in);
+    boolean access = false;
+    System.out.print("Ingrese su email de Usuario");
+    String namePass = scan.next();
+    if(namePass.equals(email)){
+    access = true;
+    }
+    return access;    
+    }
+    
+    public boolean access(){
+    boolean access = false;
+    if(pass() && emailPass()){
+    access = true;
+    }
+    return access;
     }
     
     public void Profile(){

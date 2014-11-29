@@ -16,11 +16,6 @@ public class SystemBanc {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-       Usuario user = new Usuario("admin@bank.com", "soyeladmin", "Rolando","administrador" );
-       user.Profile();
-        System.out.println(user.password);
-        System.out.println(user.email);
-        System.out.println(user.name);
     }
     
 }
