@@ -16,6 +16,7 @@ public class Usuario {
     private Date fecha;
     public static String ADMINISTRADOR = "administrador",
             CONTENIDO = "contenido", LIMITADO = "limitado";
+    Scanner scan = new Scanner(System.in);
     
     /**
      * 
@@ -43,11 +44,7 @@ public class Usuario {
     public void setName(String nombre) {
         this.name = nombre;
     }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
+    
     public String getEmail() {
         return email;
     }
@@ -59,8 +56,20 @@ public class Usuario {
     public String getNombre() {
         return name;
     }
+    /**
+     * Indica si el usuario es de el tipo del parametro
+     * @param tipo
+     * @return true si el tipo de usuario es igual al tipo del parametro
+     */
+    public boolean validateTipo(String tipo){
+        boolean validate = tipo.equals(this.tipo);
+        return validate;
+    }
+    /**
+     * Ingresa una ontraseña y valida sea la del usuario
+     * @return true si las contraseñas coinciden
+     */
     public boolean pass(){
-      Scanner scan = new Scanner(System.in);
       boolean access=false;
      System.out.print("Ingrese su password: ");
      String pass = scan.next();
@@ -69,9 +78,11 @@ public class Usuario {
      }
      return access;                
     }
-    
+    /**
+     * Ingresa un email y valida que sea el del usuario
+     * @return true si los emails coinciden
+     */
     public boolean emailPass(){
-    Scanner scan = new Scanner(System.in);
     boolean access = false;
     System.out.print("Ingrese su email de Usuario");
     String namePass = scan.next();
@@ -80,7 +91,10 @@ public class Usuario {
     }
     return access;    
     }
-    
+    /**
+     * Pide que se ingrese el email y password del usuario 
+     * @return true si abmos coinciden con los del usuario 
+     */
     public boolean access(){
     boolean access = false;
     if(pass() && emailPass()){
@@ -88,9 +102,10 @@ public class Usuario {
     }
     return access;
     }
-    
+    /**
+     * Muestra un submenu para cambiar el email, password y nombre del usuario
+     */
     public void Profile(){
-        Scanner scan = new Scanner(System.in);
         int opt = 0;
         String pass;
         System.out.println("Email: "+email+", Nombre: "+name+", Fecha de ingreso: "+fecha);
