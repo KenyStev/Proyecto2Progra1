@@ -43,6 +43,11 @@ public class CuentaBancaria {
         activa = true;
     }
     
+    /**
+     * Muestra un menu que permite seleccionar un tipo de cuenta bancaria
+     * y retorna el tipo seleccionado
+     * @return a String with the type of the account selected
+     */
     public static String selectAccountType(){
         Scanner scan = new Scanner(System.in);
         do{

@@ -151,6 +151,14 @@ public class Banco {
         }while(bul);
     }
     
+    /**
+     * Agrega una cueanta bancaria en la primera posicion vacia que encuentra
+     * si no encuentra una posicion vacia es porque el arreglo estaba lleno
+     * @param nombre
+     * @param tipo
+     * @param numero
+     * @return true iff was added
+     */
     public boolean add(String nombre, String tipo, int numero){
         boolean state = false;
         for (int i = 0; i < cuentas.length; i++) {
@@ -163,6 +171,10 @@ public class Banco {
         return state;
     }
     
+    /**
+     * Hace todo el proceso para agregar una nueva cuenta bancaria
+     * @return true if was added
+     */
     public boolean addAccount(){
         boolean done = true;
         if(!activo.validateTipo(Usuario.LIMITADO)){
@@ -179,8 +191,8 @@ public class Banco {
                 
                 if(!validarCuenta(num)){
                     String tipo = CuentaBancaria.selectAccountType();
-                    boolean lleno = add(nombre, tipo, num);
-                    if(!lleno){
+                    boolean agregada = add(nombre, tipo, num); //intenta agregar la cuenta y debuelbe true si fue agregada
+                    if(!agregada){ //Si no fue agregar es porque esta lleno el arreglo
                         System.out.println("Limite de cuentas Lleno!");
                         break;
                     }
