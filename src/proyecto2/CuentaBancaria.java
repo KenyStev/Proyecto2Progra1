@@ -6,6 +6,7 @@
 package proyecto2;
 import java.time.Instant;
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  *
@@ -40,6 +41,21 @@ public class CuentaBancaria {
         saldo = 500; //cuenta como deposito?
         fechaCreacion = Date.from(Instant.now());
         activa = true;
+    }
+    
+    public static String selectAccountType(){
+        Scanner scan = new Scanner(System.in);
+        do{
+            System.out.printf("\n***TIPOS DE CUENTA***\n1-%s\n2-%s\n3-%s\nEscoja uno: ",
+                PLANILLA, NORMAL, VIP);
+            int opt = scan.nextInt();
+            switch(opt){
+                case 1: return PLANILLA;
+                case 2: return NORMAL;
+                case 3: return VIP;
+                default: System.out.println("Opcion Incorrecta!");
+            }
+        }while(true);
     }
     
     /**

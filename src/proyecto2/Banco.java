@@ -22,7 +22,7 @@ public class Banco {
         this.activo = null;
         cuentas = new CuentaBancaria[200];
         users = new Usuario[50];
-        users[counterOfUsers++] = new Usuario("admin@bank.com", "soyeladmin", "Keny", "Administrador"); //Crear variables static del tipo deusuario en class usuario.
+        users[counterOfUsers++] = new Usuario("admin@bank.com", "soyeladmin", "Keny", Usuario.ADMINISTRADOR); //Crear variables static del tipo deusuario en class usuario.
     }
     
     public int menu(){
@@ -82,7 +82,7 @@ public class Banco {
     public boolean validarCuenta(int numero){
         boolean state = false;
         for (CuentaBancaria cuenta : cuentas) {
-            if(cuenta.validarCuenta(numero)){
+            if(cuenta != null && cuenta.validarCuenta(numero)){
                 state=true;
                 break;
             }
@@ -91,7 +91,8 @@ public class Banco {
     }
     
     /**
-     * 
+     * Reemplaza el usuario activo en el espacio de donde salio
+     * en caso de que haya sido modificado el perfil
      */
     public void reemplazarUser(){
         for (int i = 0; i < users.length; i++) {
@@ -109,7 +110,7 @@ public class Banco {
     public void createUser(){
         String email, nombre, pass, tipo;
         boolean ciclo;
-        if(activo.validateTipo("Administrador") && counterOfUsers < 50){
+        if(activo.validateTipo(Usuario.ADMINISTRADOR) && counterOfUsers < 50){
             do{ System.out.print("Ingrese su email: ");
             email = scan.next();
             ciclo = false;
@@ -126,7 +127,7 @@ public class Banco {
             pass = scan.next();
             System.out.println("Ingrese el tipo de usuario: ");
             tipo = scan.next();
-            users[counterOfUsers++] = new Usuario(email, nombre, pass, tipo);
+            users[counterOfUsers++] = new Usuario(email, pass, nombre, tipo);
         }
         else{
             System.out.println("No se permite ingresar un nuevo usuario");
@@ -148,5 +149,47 @@ public class Banco {
                 bul = false;
         }
         }while(bul);
+    }
+    
+    public boolean add(String nombre, String tipo, int numero){
+        boolean state = false;
+        for (int i = 0; i < cuentas.length; i++) {
+            if(cuentas[i]==null){
+                cuentas[i] = new CuentaBancaria(nombre, tipo, numero);
+                state = true;
+                break;
+            }
+        }
+        return state;
+    }
+    
+    public boolean addAccount(){
+        boolean done = true;
+        if(!activo.validateTipo(Usuario.LIMITADO)){
+            System.out.print("Ingrese el Nombre del Cliente: ");
+            String nombre = scan.next();
+            int num;
+            do{
+                System.out.print("Ingrese numero de Cuenta: ");
+                num = scan.nextInt();
+                
+                if(num==-1){
+                    break;
+                }
+                
+                if(!validarCuenta(num)){
+                    String tipo = CuentaBancaria.selectAccountType();
+                    boolean lleno = add(nombre, tipo, num);
+                    if(!lleno){
+                        System.out.println("Limite de cuentas Lleno!");
+                        break;
+                    }
+                    done = false;
+                }else{
+                    System.out.println("Ya existe una cuenta con ese numero!");
+                }
+            }while(done);
+        }
+        return !done;
     }
 }
