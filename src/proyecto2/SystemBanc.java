@@ -27,7 +27,7 @@ public class SystemBanc {
         if(state){
             callsMenuBank();
         }else{
-            System.out.println("Usuario o contrasenia Incorrecto!");
+            System.err.println("Usuario o contrasenia Incorrecto!");
         }
     }
     

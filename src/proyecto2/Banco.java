@@ -26,7 +26,7 @@ public class Banco {
     }
     
     public int menu(){
-        System.out.println("\n*****   MENU BANCO   *****");
+        System.out.println("\n\033[36m*****   MENU BANCO   *****");
         System.out.printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s: ",
                 "1- Agregar una cuenta.","2- Depositar en cuenta.","3- Retirar de Cuenta.",
                 "4- Registrar Intereses.","5- Transferencia a Terceros.","6- Desactivar cuentas.",
@@ -117,7 +117,7 @@ public class Banco {
                 for (int x=0; x<counterOfUsers; x++) {
                     if(users[x].getEmail().equals(email)){
                     ciclo = true;
-                        System.out.println("Ese email ya existe");
+                        System.err.println("Ese email ya existe");
                     }
                 }
             }while(ciclo);
@@ -130,7 +130,7 @@ public class Banco {
             users[counterOfUsers++] = new Usuario(email, pass, nombre, tipo);
         }
         else{
-            System.out.println("No se permite ingresar un nuevo usuario");
+            System.err.println("No se permite ingresar un nuevo usuario");
         }
     }
     
@@ -193,12 +193,12 @@ public class Banco {
                     String tipo = CuentaBancaria.selectAccountType();
                     boolean agregada = add(nombre, tipo, num); //intenta agregar la cuenta y debuelbe true si fue agregada
                     if(!agregada){ //Si no fue agregar es porque esta lleno el arreglo
-                        System.out.println("Limite de cuentas Lleno!");
+                        System.err.println("Limite de cuentas Lleno!");
                         break;
                     }
                     done = false;
                 }else{
-                    System.out.println("Ya existe una cuenta con ese numero!");
+                    System.err.println("Ya existe una cuenta con ese numero!");
                 }
             }while(done);
         }
