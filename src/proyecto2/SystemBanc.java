@@ -51,8 +51,10 @@ public class SystemBanc {
                 case 7: //Cancelar Cuenta.
                     break;
                 case 8: //Crear Usuarios
+                    bank.createUser();
                     break;
                 case 9: //Reportes
+                    bank.records();
                     break;
                 case 10: //Cerrar Sesión
                     bank.logout();
