@@ -22,7 +22,7 @@ public class Banco {
         this.activo = null;
         cuentas = new CuentaBancaria[200];
         users = new Usuario[50];
-        users[counterOfUsers++] = new Usuario("admin@bank.com", "soyeladmin", "Keny", Usuario.ADMINISTRADOR); //Crear variables static del tipo deusuario en class usuario.
+        users[counterOfUsers++] = new Usuario("admin@bank.com", "soyeladmin", "Keny", Usuario.ADMINISTRADOR);
     }
     
     public int menu(){
@@ -31,7 +31,7 @@ public class Banco {
                 "1- Agregar una cuenta.","2- Depositar en cuenta.","3- Retirar de Cuenta.",
                 "4- Registrar Intereses.","5- Transferencia a Terceros.","6- Desactivar cuentas.",
                 "7- Cancelar Cuenta.","8- Crear Usuarios","9- Reportes","10- Cerrar Sesión","11- Salir",
-                "Escoja su Opcion: ");
+                "Escoja su Opcion");
         return scan.nextInt();
     }
     
@@ -39,7 +39,7 @@ public class Banco {
         System.out.println("---------MENU DE REPORTES---------");
         System.out.printf("%s\n%s\n%s\n%s\n%s\n%s: ",
                 "1- Lista de Cuentas.","2- Estadistica.","3- Actividades.",
-                "4- Mi Perfil.","5- Regresar al Menu Principal.","Escoja su Opcion: ");
+                "4- Mi Perfil.","5- Regresar al Menu Principal.","Escoja su Opcion");
         return scan.nextInt();
     }
     
@@ -80,14 +80,14 @@ public class Banco {
      * @return 
      */
     public boolean validarCuenta(int numero){
-        boolean state = false;
+        boolean existe = false;
         for (CuentaBancaria cuenta : cuentas) {
             if(cuenta != null && cuenta.validarCuenta(numero)){
-                state=true;
+                existe=true;
                 break;
             }
         }
-        return state;
+        return existe;
     }
     
     /**
@@ -201,7 +201,43 @@ public class Banco {
                     System.err.println("Ya existe una cuenta con ese numero!");
                 }
             }while(done);
+        }else{
+            System.err.println("No Tiene Permiso para Agregar cuenta Profesor!");
         }
         return !done;
+    }
+    
+    /**
+     * Especificamente hace el deposito en la cuenta, y tiene todos los permisos para hacerlo
+     * siempre y cuando la cuenta exista.
+     * @param num numero de la cuenta bancaria
+     * @param monto monto a depositar
+     */
+    public void deposit(int num, double monto){
+        for (int i = 0; i < cuentas.length; i++) {
+            if(cuentas[i] != null && cuentas[i].validarCuenta(num)){
+                cuentas[i].addSaldo(monto);
+                System.out.printf("Depositado: %.2f en cuenta: %d: ", monto, num);
+                break;
+            }
+        }
+    }
+    
+    /**
+     * Metodo que se encarga de hacer todo el proceso de deposito
+     * @return true if was deposited
+     */
+    public boolean depositBalance(){
+        boolean state = false;
+        System.out.print("Ingrese el Numero de Cuenta: ");
+        int num = scan.nextInt();
+        if(validarCuenta(num)){
+            System.out.print("Ingrese el monto a depositar: ");
+            double monto = scan.nextDouble();
+            deposit(num, monto);
+        }else{
+            System.out.println("\033[31mLa Cuenta no Existe!");
+        }
+        return state;
     }
 }

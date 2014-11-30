@@ -18,6 +18,13 @@ public class SystemBanc {
      */
     public static void main(String[] args) {
         while(true){
+            System.out.println("\033[32m   * *                * *");
+            System.out.println("\033[33m  ******             ******");
+            System.out.println("\033[33m *** \033[32m*              \033[33m*** \033[32m*");
+            System.out.println("\033[33m  **** \033[32mYSTEM BANKERO \033[33m****");
+            System.out.println("\033[32m  * \033[33m***              \033[32m* \033[33m***");
+            System.out.println("\033[33m******             ******");
+            System.out.println("\033[32m  * *                * *");
             Login();
         }
     }
@@ -27,7 +34,7 @@ public class SystemBanc {
         if(state){
             callsMenuBank();
         }else{
-            System.err.println("Usuario o contrasenia Incorrecto!");
+            System.err.println("\033[31mUsuario o contrasenia Incorrecto!");
         }
     }
     
@@ -40,6 +47,7 @@ public class SystemBanc {
                     bank.addAccount();
                     break;
                 case 2: //Depositar en cuenta.
+                    bank.depositBalance();
                     break;
                 case 3: //Retirar de Cuenta.
                     break;

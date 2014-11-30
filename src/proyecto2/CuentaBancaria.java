@@ -85,13 +85,13 @@ public class CuentaBancaria {
      * @return true if was removed else false
      */
     public boolean retirarSaldo(double monto){
-        boolean retirado = validarRetiro(monto);
-        if(retirado){
+        boolean retirable = validarRetiro(monto);
+        if(retirable){
             saldo-=monto;
             retirosHechos++;
             montoRetiros+=monto;
         }
-        return retirado;
+        return retirable;
     }
     
     /**
@@ -126,6 +126,12 @@ public class CuentaBancaria {
      */
     public boolean validarCuenta(int numero){
         return this.numero==numero;
+    }
+    
+    public void registrarInteres(){
+        if(activa){
+            addSaldo(saldo*tasaInteres); //Los Intereses cuentan como depositos?
+        }
     }
     
     /*Funciones Set*/
