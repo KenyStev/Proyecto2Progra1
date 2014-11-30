@@ -50,6 +50,7 @@ public class SystemBanc {
                     bank.depositBalance();
                     break;
                 case 3: //Retirar de Cuenta.
+                    bank.removeBalance();
                     break;
                 case 4: //Registrar Intereses.
                     break;

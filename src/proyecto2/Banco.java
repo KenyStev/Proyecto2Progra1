@@ -14,15 +14,14 @@ import java.util.Scanner;
 public class Banco {
     private Scanner scan = new Scanner(System.in);
     private CuentaBancaria cuentas[];
-    private Usuario users[]; //Se pueden eliminar usuarios?
-    private Usuario activo;
+    private Usuario users[], activo;
     private int counterOfUsers=0;
     
     public Banco() {
         this.activo = null;
         cuentas = new CuentaBancaria[200];
         users = new Usuario[50];
-        users[counterOfUsers++] = new Usuario("admin@bank.com", "soyeladmin", "Keny", Usuario.ADMINISTRADOR);
+        users[counterOfUsers++] = new Usuario("admin@bank.com", "soyeladmin", "ProfesorGoches", Usuario.ADMINISTRADOR);
     }
     
     public int menu(){
@@ -68,10 +67,42 @@ public class Banco {
     
     /**
      * Cierra sesion que esta abierta con el perfil de usuario activo
+     * y lo reemplaza en la posicion de la que salio
      */
     public void logout(){
         reemplazarUser();
         activo = null;
+    }
+    
+    /**
+     * Busca si la cuenta existe y devuelve el numero de la posicion de la en el arreglo se cuentas
+     * sino existe devuelve -1
+     * @param numero espera el numero de la cuenta
+     * @param activa espera el tipo de cuenta que desea validar si es true son las activas sino son todas;
+     * @return index of position or -1 if don't exist
+     */
+    public int validarIndex(int numero, boolean activa){
+        int index = -1;
+        if(activa){
+            if(validarCuentaActiva(numero)){
+                for (int i = 0; i<cuentas.length; i++) {
+                    if(cuentas[i] != null && cuentas[i].validarCuenta(numero)){
+                        index=i;
+                        break;
+                    }
+                }
+            }
+        }else{
+            if(validarCuenta(numero)){
+                for (int i = 0; i<cuentas.length; i++) {
+                    if(cuentas[i] != null && cuentas[i].validarCuenta(numero)){
+                        index=i;
+                        break;
+                    }
+                }
+            }
+        }
+        return index;
     }
     
     /**
@@ -88,6 +119,15 @@ public class Banco {
             }
         }
         return existe;
+    }
+    
+    public boolean validarCuentaActiva(int numero){
+        for (CuentaBancaria cuenta : cuentas) {
+            if(cuenta != null && cuenta.validarCuenta(numero) && cuenta.getState()){
+                return true;
+            }
+        }
+        return false;
     }
     
     /**
@@ -176,7 +216,7 @@ public class Banco {
      * @return true if was added
      */
     public boolean addAccount(){
-        boolean done = true;
+        boolean agregada = false;
         if(!activo.validateTipo(Usuario.LIMITADO)){
             System.out.print("Ingrese el Nombre del Cliente: ");
             String nombre = scan.next();
@@ -184,27 +224,24 @@ public class Banco {
             do{
                 System.out.print("Ingrese numero de Cuenta: ");
                 num = scan.nextInt();
-                
                 if(num==-1){
                     break;
                 }
-                
                 if(!validarCuenta(num)){
                     String tipo = CuentaBancaria.selectAccountType();
-                    boolean agregada = add(nombre, tipo, num); //intenta agregar la cuenta y debuelbe true si fue agregada
+                    agregada = add(nombre, tipo, num); //intenta agregar la cuenta y devuelve true si fue agregada
                     if(!agregada){ //Si no fue agregar es porque esta lleno el arreglo
-                        System.err.println("Limite de cuentas Lleno!");
+                        System.out.println("\033[31mLimite de cuentas Lleno!");
                         break;
                     }
-                    done = false;
                 }else{
-                    System.err.println("Ya existe una cuenta con ese numero!");
+                    System.out.println("\033[31mYa existe una cuenta con ese numero!");
                 }
-            }while(done);
+            }while(!agregada);
         }else{
-            System.err.println("No Tiene Permiso para Agregar cuenta Profesor!");
+            System.out.println("\033[31mNo Tiene Permiso para Agregar cuenta Profesor!");
         }
-        return !done;
+        return agregada;
     }
     
     /**
@@ -213,14 +250,11 @@ public class Banco {
      * @param num numero de la cuenta bancaria
      * @param monto monto a depositar
      */
-    public void deposit(int num, double monto){
-        for (int i = 0; i < cuentas.length; i++) {
-            if(cuentas[i] != null && cuentas[i].validarCuenta(num)){
-                cuentas[i].addSaldo(monto);
-                System.out.printf("Depositado: %.2f en cuenta: %d: ", monto, num);
-                break;
-            }
-        }
+    public boolean deposit(int index, double monto){
+        cuentas[index].addSaldo(monto);
+        System.out.printf("Depositado: %.2f en cuenta: %d. Saldo Actual: %.2f\n", 
+                monto, cuentas[index].getNum(), cuentas[index].getSaldo());
+        return true;
     }
     
     /**
@@ -229,14 +263,55 @@ public class Banco {
      */
     public boolean depositBalance(){
         boolean state = false;
-        System.out.print("Ingrese el Numero de Cuenta: ");
-        int num = scan.nextInt();
-        if(validarCuenta(num)){
-            System.out.print("Ingrese el monto a depositar: ");
-            double monto = scan.nextDouble();
-            deposit(num, monto);
+        do{
+            System.out.print("Ingrese el Numero de Cuenta: ");
+            int num = scan.nextInt();
+            if(num==-1){
+                break;
+            }
+            int index = validarIndex(num, state);
+            if(index>=0){
+                System.out.print("Ingrese el monto a depositar: ");
+                double monto = scan.nextDouble();
+                state = deposit(index, monto);
+            }else{
+                System.out.println("\033[31mLa Cuenta no Existe!");
+            }
+        }while(!state);
+        return state;
+    }
+    
+    public boolean remove(int index, double monto){
+        boolean removed = cuentas[index].retirarSaldo(monto);
+        if(removed){
+            System.out.printf("Retirados: %.2f de la cuenta: %d. Saldo Actual: %.2f\n", 
+                    monto, cuentas[index].getNum(), cuentas[index].getSaldo());
         }else{
-            System.out.println("\033[31mLa Cuenta no Existe!");
+            System.out.println("\033[31mMonto mayor al saldo disponible!");
+        }
+        return removed;
+    }
+    
+    public boolean removeBalance(){
+        boolean state=false;
+        if(!activo.validateTipo(Usuario.LIMITADO)){
+            do{
+                System.out.print("Ingrese el Numero de la Cuenta: ");
+                int num = scan.nextInt();
+                if(num==-1){
+                    break;
+                }
+                int index = validarIndex(num, !state);
+                if(index>=0){
+                    System.out.print("Ingrese el monto a Retirar: ");
+                    double monto = scan.nextDouble();
+                    state = remove(index, monto);
+                }else{
+                    System.out.println("\033[31mNumero de cuenta no valido!");
+                }
+            }while(!state);
+        }else{
+            System.out.println("\033[31mNo tiene permisos para retirar dinero Profesor!");
         }
         return state;
     }
