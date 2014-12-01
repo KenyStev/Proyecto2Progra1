@@ -17,11 +17,11 @@ public class Banco {
     private Usuario users[], activo;
     private int counterOfUsers=0;
     
-    public Banco() {
+    public Banco() { 
         this.activo = null;
         cuentas = new CuentaBancaria[200];
         users = new Usuario[50];
-        users[counterOfUsers++] = new Usuario("admin@bank.com", "soyeladmin", "ProfesorGoches", Usuario.ADMINISTRADOR);
+        users[counterOfUsers++] = new Usuario("admin@bank.com", "soyeladmin", "Ing.Goches", Usuario.ADMINISTRADOR);
     }
     
     public int menu(){
@@ -47,7 +47,7 @@ public class Banco {
      * y si lo hay, entonces hace el login
      * @return true if was logged or false if wasn't logged
      */
-    public boolean login(){
+    public boolean login(){ 
         boolean state = false;
         System.out.print("Ingrese nombre de Usuario: ");
         String user= scan.next();
@@ -84,23 +84,23 @@ public class Banco {
     public int validarIndex(int numero, boolean activa){
         int index = -1;
         if(activa){
-            if(validarCuentaActiva(numero)){
+//            if(validarCuentaActiva(numero)){
                 for (int i = 0; i<cuentas.length; i++) {
-                    if(cuentas[i] != null && cuentas[i].validarCuenta(numero)){
+                    if(cuentas[i] != null && cuentas[i].validarCuenta(numero) && cuentas[i].getState()){
                         index=i;
                         break;
                     }
                 }
-            }
+//            }
         }else{
-            if(validarCuenta(numero)){
+//            if(validarCuenta(numero)){
                 for (int i = 0; i<cuentas.length; i++) {
                     if(cuentas[i] != null && cuentas[i].validarCuenta(numero)){
                         index=i;
                         break;
                     }
                 }
-            }
+//            }
         }
         return index;
     }
@@ -170,7 +170,7 @@ public class Banco {
             users[counterOfUsers++] = new Usuario(email, pass, nombre, tipo);
         }
         else{
-            System.err.println("No se permite ingresar un nuevo usuario");
+            System.out.println("\033[31mNo se permite ingresar un nuevo usuario");
         }
     }
     
@@ -199,7 +199,7 @@ public class Banco {
      * @param numero
      * @return true iff was added
      */
-    public boolean add(String nombre, String tipo, int numero){
+    private boolean add(String nombre, String tipo, int numero){
         boolean state = false;
         for (int i = 0; i < cuentas.length; i++) {
             if(cuentas[i]==null){
@@ -239,7 +239,7 @@ public class Banco {
                 }
             }while(!agregada);
         }else{
-            System.out.println("\033[31mNo Tiene Permiso para Agregar cuenta Profesor!");
+            System.out.println("\033[31mNo Tiene Permiso para Agregar cuenta Ingeniero!");
         }
         return agregada;
     }
@@ -250,8 +250,8 @@ public class Banco {
      * @param num numero de la cuenta bancaria
      * @param monto monto a depositar
      */
-    public boolean deposit(int index, double monto){
-        cuentas[index].addSaldo(monto);
+    private boolean deposit(int index, double monto){
+        cuentas[index].addSaldo(monto, true);
         System.out.printf("Depositado: %.2f en cuenta: %d. Saldo Actual: %.2f\n", 
                 monto, cuentas[index].getNum(), cuentas[index].getSaldo());
         return true;
@@ -281,7 +281,7 @@ public class Banco {
         return state;
     }
     
-    public boolean remove(int index, double monto){
+    private boolean remove(int index, double monto){
         boolean removed = cuentas[index].retirarSaldo(monto);
         if(removed){
             System.out.printf("Retirados: %.2f de la cuenta: %d. Saldo Actual: %.2f\n", 
@@ -311,7 +311,7 @@ public class Banco {
                 }
             }while(!state);
         }else{
-            System.out.println("\033[31mNo tiene permisos para retirar dinero Profesor!");
+            System.out.println("\033[31mNo tiene permisos para retirar dinero Ingeniero!");
         }
         return state;
     }

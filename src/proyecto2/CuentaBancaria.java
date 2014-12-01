@@ -21,7 +21,7 @@ public class CuentaBancaria {
     private int retirosHechos=0, depositosHechos=0, transHechas=0;
     private double montoRetiros=0, montoDepositos=0, montoTrans=0;
     
-    private static String PLANILLA="PLANILLA", NORMAL="NORMAL", VIP="VIP";
+    public static String PLANILLA="PLANILLA", NORMAL="NORMAL", VIP="VIP";
 
     /**
      * Construye un nuevo objeto de tipo CuentaBancaria con sus datos especificos
@@ -38,7 +38,7 @@ public class CuentaBancaria {
             case "NORMAL": tasaInteres=0.02; break;
             case "VIP": tasaInteres=0.04; break;
         }
-        saldo = 500; //cuenta como deposito?
+        saldo = 500; 
         fechaCreacion = Date.from(Instant.now());
         activa = true;
     }
@@ -67,16 +67,22 @@ public class CuentaBancaria {
      * Agrega saldo a la cuenta bancaria
      * @param monto
      */
-    public void addSaldo(double monto){
+    public void addSaldo(double monto, boolean registrarComoDeposito){
         if(activa){
          this.saldo+=monto;
-         montoDepositos+=monto;
+         if(registrarComoDeposito){
+             montoDepositos+=monto;
+         }
         }else{
-            this.saldo+=(monto-(monto*0.2));
-            montoDepositos+=(monto-(monto*0.2));
+            saldo+=(monto-(monto*0.2));
+            if(registrarComoDeposito){
+                montoDepositos+=(monto-(monto*0.2));
+            }
             activa = true;
         }
-        depositosHechos++;
+        if(registrarComoDeposito){
+            depositosHechos++;
+        }
     }
     
     /**
@@ -103,7 +109,7 @@ public class CuentaBancaria {
     public boolean transferencia(double monto, CuentaBancaria depositTo){
         boolean state = retirarSaldo(monto);
         if(state){
-            depositTo.addSaldo(monto);
+            depositTo.addSaldo(monto, true);
             transHechas++;
             montoTrans+=monto;
         }
@@ -128,9 +134,13 @@ public class CuentaBancaria {
         return this.numero==numero;
     }
     
+    /**
+     * Registra los intereses mandando false en el segundo parametro de la funcion porque
+     * no lo toma como deposito
+     */
     public void registrarInteres(){
         if(activa){
-            addSaldo(saldo*tasaInteres); //Los Intereses cuentan como depositos?
+            addSaldo(saldo*tasaInteres, false);
         }
     }
     
