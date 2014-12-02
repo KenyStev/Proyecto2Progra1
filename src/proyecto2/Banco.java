@@ -55,8 +55,7 @@ public class Banco {
         String pass= scan.next();
         
         for (Usuario usuario : users) {
-            if(usuario != null && usuario.getEmail().equals(user)
-                    && usuario.getPassword().equals(pass)){
+            if(usuario != null && usuario.access(pass, user)){ //cambiando funcion access
                 activo = usuario;
                 state = true;
                 break;
@@ -84,23 +83,19 @@ public class Banco {
     private int validarIndex(int numero, boolean activa){
         int index = -1;
         if(activa){
-//            if(validarCuentaActiva(numero)){
-                for (int i = 0; i<cuentas.length; i++) {
-                    if(cuentas[i] != null && cuentas[i].validarCuenta(numero) && cuentas[i].getState()){
-                        index=i;
-                        break;
-                    }
+            for (int i = 0; i<cuentas.length; i++) {
+                if(cuentas[i] != null && cuentas[i].validarCuenta(numero) && cuentas[i].getState()){
+                    index=i;
+                    break;
                 }
-//            }
+            }
         }else{
-//            if(validarCuenta(numero)){
-                for (int i = 0; i<cuentas.length; i++) {
-                    if(cuentas[i] != null && cuentas[i].validarCuenta(numero)){
-                        index=i;
-                        break;
-                    }
+            for (int i = 0; i<cuentas.length; i++) {
+                if(cuentas[i] != null && cuentas[i].validarCuenta(numero)){
+                    index=i;
+                    break;
                 }
-//            }
+            }
         }
         return index;
     }
@@ -192,11 +187,11 @@ public class Banco {
     }
     
     /**
-     * Agrega una cueanta bancaria en la primera posicion vacia que encuentra
-     * si no encuentra una posicion vacia es porque el arreglo estaba lleno
-     * @param nombre
-     * @param tipo
-     * @param numero
+     * Funcion privada que agrega una cueanta bancaria en la primera posicion vacia que encuentra
+     * si no encuentra una posicion vacia es porque el arreglo estaba lleno, tiene todos los permisos para agregar cuentas;
+     * @param nombre nombre del duenio de la cuenta
+     * @param tipo tipo de cuenta creada
+     * @param numero numero de la cuenta
      * @return true iff was added
      */
     private boolean add(String nombre, String tipo, int numero){
@@ -213,7 +208,6 @@ public class Banco {
     
     /**
      * Hace todo el proceso para agregar una nueva cuenta bancaria
-     * @return true if was added
      */
     public void addAccount(){
         boolean agregada = false;
@@ -241,11 +235,11 @@ public class Banco {
         }else{
             System.out.println("\033[31mNo Tiene Permiso para Agregar cuenta Ingeniero!");
         }
-//        return agregada;
     }
     
     /**
-     * Especificamente hace el deposito en la cuenta, y tiene todos los permisos para hacerlo
+     * Funcion privada que hace el deposito en la cuenta, y tiene todos los permisos para hacerlo.
+     * solo puede ser usada por el banco.
      * siempre y cuando la cuenta exista.
      * @param num numero de la cuenta bancaria
      * @param monto monto a depositar
@@ -259,7 +253,6 @@ public class Banco {
     
     /**
      * Metodo que se encarga de hacer todo el proceso de deposito
-     * @return true if was deposited
      */
     public void depositBalance(){
         boolean state = false;
@@ -278,9 +271,15 @@ public class Banco {
                 System.out.println("\033[31mLa Cuenta no Existe!");
             }
         }while(!state);
-//        return state;
     }
     
+    /**
+     * Funcion privada de uso exclusivo del banco para retirar dinero de la cuenta
+     * con todos los permisos.
+     * @param index indice de la cuenta a la que se la va a retirar el monto
+     * @param monto el monot a ser retirado
+     * @return true if was removed (is remove if there are approch money)
+     */
     private boolean remove(int index, double monto){
         boolean removed = cuentas[index].retirarSaldo(monto);
         if(removed){
@@ -292,6 +291,10 @@ public class Banco {
         return removed;
     }
     
+    /**
+     * Hace el proceso para remover dinero de una cuenta vancaria 
+     * validando todo lo que sea necesario.
+     */
     public void removeBalance(){
         boolean state=false;
         if(!activo.validateTipo(Usuario.LIMITADO)){
@@ -313,9 +316,11 @@ public class Banco {
         }else{
             System.out.println("\033[31mNo tiene permisos para retirar dinero Ingeniero!");
         }
-//        return state;
     }
     
+    /**
+     * Registra los intereses para todas las cuentas activas que tenga el banco
+     */
     public void recordInterest(){
         for (int i = 0; i < cuentas.length; i++) {
             if(cuentas[i]!=null){
@@ -324,6 +329,11 @@ public class Banco {
         }
     }
     
+    /**
+     * Transfiere dinero de una cuenta a otra validando lo que sea necesario
+     * como que usuario esta haciendo la transferencia y que halla suficiente dinero
+     * para ser retirado
+     */
     public void trasferBalance(){
         boolean state = false;
         if(!activo.validateTipo(Usuario.LIMITADO)){
