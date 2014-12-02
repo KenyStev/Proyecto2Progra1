@@ -116,6 +116,7 @@ public class Usuario {
             System.out.println("\t4.Regresar al menu de Reportes");
             System.out.print("Escoja su opcion: ");
             opt = scan.nextInt();
+            
             switch(opt){
                 case 1: if(pass()){
                             System.out.print("Ingresa el nuevo email: ");
