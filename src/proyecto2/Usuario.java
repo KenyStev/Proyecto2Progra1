@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package proyecto2;
 import java.time.Instant;
 import java.util.Date;
@@ -19,11 +19,11 @@ public class Usuario {
     Scanner scan = new Scanner(System.in);
     
     /**
-     * 
+     *
      * @param email
      * @param pass
      * @param nombre
-     * @param tipo 
+     * @param tipo
      */
     public Usuario(String email, String pass, String nombre, String tipo){
         this.email = email;
@@ -32,15 +32,15 @@ public class Usuario {
         this.tipo = tipo;
         fecha = Date.from(Instant.now());
     }
-
+    
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
     public void setPassword(String password) {
         this.password = password;
     }
-
+    
     public void setName(String nombre) {
         this.name = nombre;
     }
@@ -48,11 +48,11 @@ public class Usuario {
     public String getEmail() {
         return email;
     }
-
+    
     public String getPassword() {
         return password;
     }
-
+    
     public String getNombre() {
         return name;
     }
@@ -67,47 +67,52 @@ public class Usuario {
     }
     /**
      * Ingresa una ontraseña y valida sea la del usuario
+     * @param password
      * @return true si las contraseñas coinciden
      */
-    public boolean pass(){
-      boolean access=false;
-     System.out.print("Ingrese su password: ");
-     String pass = scan.next();
-     if(pass.equals(password)){
-     access = true;
-     }
-     return access;                
+    public boolean pass(String password){
+        boolean access=false;
+        if(password.equals(this.password)){
+            access = true;
+        }
+        return access;
     }
     /**
      * Ingresa un email y valida que sea el del usuario
+     * @param email
      * @return true si los emails coinciden
      */
-    public boolean emailPass(){
-    boolean access = false;
-    System.out.print("Ingrese su email de Usuario");
-    String namePass = scan.next();
-    if(namePass.equals(email)){
-    access = true;
-    }
-    return access;    
+    public boolean emailPass(String email){
+        boolean access = false;
+        if(email.equals(this.email)){
+            access = true;
+        }
+        return access;
     }
     /**
-     * Pide que se ingrese el email y password del usuario 
-     * @return true si abmos coinciden con los del usuario 
+     * Pide que se ingrese el email y password del usuario
+     * @param pass
+     * @param email
+     * @return true si abmos coinciden con los del usuario
      */
-    public boolean access(){
-    boolean access = false;
-    if(pass() && emailPass()){
-    access = true;
+    public boolean access(String pass, String email){
+        boolean access = false;
+        if(pass(pass) && emailPass(email)){
+            access = true;
+        }
+        return access;
     }
-    return access;
+    
+    public static String selectUserType(){
+    do{
+       System.out.printf("") 
+    }while(true);
     }
     /**
      * Muestra un submenu para cambiar el email, password y nombre del usuario
      */
     public void Profile(){
         int opt = 0;
-        String pass;
         System.out.println("Email: "+email+", Nombre: "+name+", Fecha de ingreso: "+fecha);
         do{
             System.out.println("\t1.Cambiar mi email");
@@ -116,33 +121,25 @@ public class Usuario {
             System.out.println("\t4.Regresar al menu de Reportes");
             System.out.print("Escoja su opcion: ");
             opt = scan.nextInt();
-            switch(opt){
-                case 1: if(pass()){
-                            System.out.print("Ingresa el nuevo email: ");
-                            setEmail(scan.next());
-                        }
-                        else{
-                            System.out.println("Password Incorrecto");
-                        }
-                break;
-                case 2: if(pass()){
-                            System.out.print("Ingrese el nuevo password");
-                            setPassword(scan.next());
-                        }
-                        else{
-                            System.out.println("Password Incorrecto");    
-                        }
-                break;
-                case 3: if(pass()){
-                            System.out.print("Ingrese el nuevo nombre");
-                            setName(scan.next());
-                        }
-                        else{
-                            System.out.println("Password Incorrecto");    
-                        }
-                break;
-                case 4: //salir
+            if(opt>0 && opt!=4){
+                System.out.println("Ingrese su password");
+                if(pass(scan.next())){
+                    switch(opt){
+                        case 1:     System.out.print("Ingresa el nuevo email: ");
+                        setEmail(scan.next());
+                        break;
+                        case 2:     System.out.print("Ingrese el nuevo password");
+                        setPassword(scan.next());
+                        break;
+                        case 3:     System.out.print("Ingrese el nuevo nombre");
+                        setName(scan.next());
+                        break;
+                    }
+                }
+                else{
+                    System.out.println("Password Incorrecto");
+                }
             }
-    }while(opt!=4);
+        }while(opt!=4);
     }
 }
