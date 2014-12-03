@@ -135,6 +135,15 @@ public class CuentaBancaria {
     }
     
     /**
+     * Valida que la cuenta sea del tipo dado en el parametro
+     * @param type
+     * @return 
+     */
+    public boolean validarTypeAccount(String type){
+        return tipo.equals(type);
+    }
+    
+    /**
      * Registra los intereses mandando false en el segundo parametro de la funcion porque
      * no lo toma como deposito
      */
@@ -162,7 +171,7 @@ public class CuentaBancaria {
         return saldo;
     }
     
-    public boolean getState(){
+    public boolean isActiva(){
         return activa;
     }
 

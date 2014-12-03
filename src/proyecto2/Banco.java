@@ -84,7 +84,7 @@ public class Banco {
         int index = -1;
         if(activa){
             for (int i = 0; i<cuentas.length; i++) {
-                if(cuentas[i] != null && cuentas[i].validarCuenta(numero) && cuentas[i].getState()){
+                if(cuentas[i] != null && cuentas[i].validarCuenta(numero) && cuentas[i].isActiva()){
                     index=i;
                     break;
                 }
@@ -119,7 +119,7 @@ public class Banco {
     
     private boolean validarCuentaActiva(int numero){
         for (CuentaBancaria cuenta : cuentas) {
-            if(cuenta != null && cuenta.validarCuenta(numero) && cuenta.getState()){
+            if(cuenta != null && cuenta.validarCuenta(numero) && cuenta.isActiva()){
                 return true;
             }
         }
@@ -170,7 +170,7 @@ public class Banco {
     }
     private void search(boolean estado){
         for(int i=0; i<cuentas.length; i++){
-            if(cuentas[i]!=null && cuentas[i].getState()==estado){
+            if(cuentas[i]!=null && cuentas[i].isActiva()==estado){
                 System.out.println(cuentas[i].toString()); 
             }
         }
@@ -194,7 +194,7 @@ public class Banco {
     private int searchAccount(String type){
         int cant=0;
         for(CuentaBancaria temp: cuentas){
-            if(temp!=null && temp.getTipo().equals(type) && temp.getState()==true){
+            if(temp!=null && temp.getTipo().equals(type) && temp.isActiva()==true){
             cant++;
             }
         }
