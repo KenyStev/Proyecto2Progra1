@@ -102,7 +102,6 @@ public class Usuario {
         }
         return access;
     }
-<<<<<<< HEAD
     /**
      * Muestra un menu para que el usuario escoja el tipo de usuario
      * @return un String con el tipo de usuario seleccionado
@@ -121,14 +120,6 @@ public class Usuario {
             }
         }while(true);
     }
-=======
-    
-//    public static String selectUserType(){
-//    do{
-//       System.out.printf("") 
-//    }while(true);
-//    }
->>>>>>> db0a645f765c778c194bc933ac45a365ab7d891d
     /**
      * Muestra un submenu para cambiar el email, password y nombre del usuario
      */

@@ -83,33 +83,20 @@ public class Banco {
     private int validarIndex(int numero, boolean activa){
         int index = -1;
         if(activa){
-<<<<<<< HEAD
-//            if(validarCuentaActiva(numero)){
-=======
->>>>>>> db0a645f765c778c194bc933ac45a365ab7d891d
             for (int i = 0; i<cuentas.length; i++) {
                 if(cuentas[i] != null && cuentas[i].validarCuenta(numero) && cuentas[i].getState()){
                     index=i;
                     break;
                 }
             }
-<<<<<<< HEAD
-//            }
+
         }else{
-//            if(validarCuenta(numero)){
-=======
-        }else{
->>>>>>> db0a645f765c778c194bc933ac45a365ab7d891d
             for (int i = 0; i<cuentas.length; i++) {
                 if(cuentas[i] != null && cuentas[i].validarCuenta(numero)){
                     index=i;
                     break;
                 }
             }
-<<<<<<< HEAD
-//            }
-=======
->>>>>>> db0a645f765c778c194bc933ac45a365ab7d891d
         }
         return index;
     }
@@ -181,10 +168,10 @@ public class Banco {
             System.out.println("\033[31mNo se permite ingresar un nuevo usuario");
         }
     }
-    private void searchUser(boolean estado){
-        for(CuentaBancaria temp : cuentas){
-            if(temp!=null && temp.getState()==estado){
-                temp.toString();
+    private void search(boolean estado){
+        for(int i=0; i<cuentas.length; i++){
+            if(cuentas[i]!=null && cuentas[i].getState()==estado){
+                System.out.println(cuentas[i].toString()); 
             }
         }
     }
@@ -193,12 +180,12 @@ public class Banco {
      * activas o desactivadas segun escoja el usuario
      */        
     public void listAccounts(){
-        System.out.println("Quiere listar \n1-Activas \n2-Desactivadas ");
+        System.out.println("Que tipo quiere listar: \n1-Activas \n2-Desactivadas ");
         int type = scan.nextInt();
         switch(type){
-            case 1: searchUser(true);
+            case 1: search(true);
             break;
-            case 2: searchUser(false);
+            case 2: search(false);
             break;
             default: System.out.println("Tipo de cuenta invalido");
         }
