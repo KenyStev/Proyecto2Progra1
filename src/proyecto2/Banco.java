@@ -461,4 +461,43 @@ public class Banco {
             System.out.println("\033[31mNo tiene permisos para hacer trasferencias Ingeniero!");
         }
     }
+    
+    public void lookAccount(){
+        if(!activo.validateTipo(Usuario.LIMITADO)){
+            System.out.print("Ingrese el codigo de la cuenta:");
+            int num = scan.nextInt();
+            int index = validarIndex(num, true);
+            if(index>=0){
+                System.out.print("Desea desactivar la cuenta? (Si/No): ");
+                String resp = scan.next();
+                if(resp.equalsIgnoreCase("si")){
+                    cuentas[index].disable();
+                }
+            }else{
+                System.out.println("\033[31La Cuenta no existe o esta desactivada!");
+            }
+        }else{
+            System.out.println("\033[31No tiene permisos para desctivar cuentas Ingeniero!");
+        }
+    }
+    
+    public void cancelAccount(){
+        if(activo.validateTipo(Usuario.ADMINISTRADOR)){
+            System.out.print("Ingrese el numero de cuenta: ");
+            int num = scan.nextInt();
+            int index = validarIndex(num, false);
+            if(index>=0){
+                System.out.print("Realmente desea cancelar la cuenta: "+cuentas[index].getNum());
+                String resp = scan.next();
+                if(resp.equalsIgnoreCase("si")){
+                    System.out.println("Cancelada cuenta: "+cuentas[index].toString());
+                    cuentas[index] = null;
+                }
+            }else{
+                System.out.println("\033[31La cuenta no existe!");
+            }
+        }else{
+            System.out.println("\033[31No tiene permisos para cancelar cuentas Ingeniero!");
+        }
+    }
 }

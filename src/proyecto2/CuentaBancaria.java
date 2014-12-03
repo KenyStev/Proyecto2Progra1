@@ -38,9 +38,9 @@ public class CuentaBancaria {
             case "NORMAL": tasaInteres=0.02; break;
             case "VIP": tasaInteres=0.04; break;
         }
-        saldo = 500; 
+        setSaldo(500);
         fechaCreacion = Date.from(Instant.now());
-        activa = true;
+        active();
     }
     
     /**
@@ -78,7 +78,7 @@ public class CuentaBancaria {
             if(registrarComoDeposito){
                 montoDepositos+=(monto-(monto*0.2));
             }
-            activa = true;
+            active();
         }
         if(registrarComoDeposito){
             depositosHechos++;
@@ -157,7 +157,7 @@ public class CuentaBancaria {
     }
     
     /*Funciones Set*/
-    public void setSaldo(double saldo){
+    private void setSaldo(double saldo){
         this.saldo = saldo;
     }
     /*-----------------*/
@@ -204,6 +204,14 @@ public class CuentaBancaria {
         return montoTrans;
     }
     /*-----------------*/
+    
+    private void active(){
+        activa=true;
+    }
+    
+    public void disable(){
+        activa=false;
+    }
     
     /**
      * Retorna los datos de la cuenta en el orden:

@@ -59,8 +59,10 @@ public class SystemBanc {
                     bank.trasferBalance();
                     break;
                 case 6: //Desactivar cuentas.
+                    bank.lookAccount();
                     break;
                 case 7: //Cancelar Cuenta.
+                    bank.cancelAccount();
                     break;
                 case 8: //Crear Usuarios
                     bank.createUser();
