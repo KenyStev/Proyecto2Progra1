@@ -53,8 +53,10 @@ public class SystemBanc {
                     bank.removeBalance();
                     break;
                 case 4: //Registrar Intereses.
+                    bank.recordInterest();
                     break;
                 case 5: //Transferencia a Terceros.
+                    bank.trasferBalance();
                     break;
                 case 6: //Desactivar cuentas.
                     break;

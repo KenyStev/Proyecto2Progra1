@@ -55,8 +55,7 @@ public class Banco {
         String pass= scan.next();
         
         for (Usuario usuario : users) {
-            if(usuario != null && usuario.getEmail().equals(user)
-                    && usuario.getPassword().equals(pass)){
+            if(usuario != null && usuario.access(pass, user)){ //cambiando funcion access
                 activo = usuario;
                 state = true;
                 break;
@@ -81,26 +80,36 @@ public class Banco {
      * @param activa espera el tipo de cuenta que desea validar si es true son las activas sino son todas;
      * @return index of position or -1 if don't exist
      */
-    public int validarIndex(int numero, boolean activa){
+    private int validarIndex(int numero, boolean activa){
         int index = -1;
         if(activa){
+<<<<<<< HEAD
 //            if(validarCuentaActiva(numero)){
+=======
+>>>>>>> db0a645f765c778c194bc933ac45a365ab7d891d
             for (int i = 0; i<cuentas.length; i++) {
                 if(cuentas[i] != null && cuentas[i].validarCuenta(numero) && cuentas[i].getState()){
                     index=i;
                     break;
                 }
             }
+<<<<<<< HEAD
 //            }
         }else{
 //            if(validarCuenta(numero)){
+=======
+        }else{
+>>>>>>> db0a645f765c778c194bc933ac45a365ab7d891d
             for (int i = 0; i<cuentas.length; i++) {
                 if(cuentas[i] != null && cuentas[i].validarCuenta(numero)){
                     index=i;
                     break;
                 }
             }
+<<<<<<< HEAD
 //            }
+=======
+>>>>>>> db0a645f765c778c194bc933ac45a365ab7d891d
         }
         return index;
     }
@@ -110,7 +119,7 @@ public class Banco {
      * @param numero
      * @return
      */
-    public boolean validarCuenta(int numero){
+    private boolean validarCuenta(int numero){
         boolean existe = false;
         for (CuentaBancaria cuenta : cuentas) {
             if(cuenta != null && cuenta.validarCuenta(numero)){
@@ -121,7 +130,7 @@ public class Banco {
         return existe;
     }
     
-    public boolean validarCuentaActiva(int numero){
+    private boolean validarCuentaActiva(int numero){
         for (CuentaBancaria cuenta : cuentas) {
             if(cuenta != null && cuenta.validarCuenta(numero) && cuenta.getState()){
                 return true;
@@ -134,7 +143,7 @@ public class Banco {
      * Reemplaza el usuario activo en el espacio de donde salio
      * en caso de que haya sido modificado el perfil
      */
-    public void reemplazarUser(){
+    private void reemplazarUser(){
         for (int i = 0; i < users.length; i++) {
             if(activo.getEmail().equals(users[i].getEmail())){
                 users[i] = activo;
@@ -280,11 +289,11 @@ public class Banco {
     }
     
     /**
-     * Agrega una cueanta bancaria en la primera posicion vacia que encuentra
-     * si no encuentra una posicion vacia es porque el arreglo estaba lleno
-     * @param nombre
-     * @param tipo
-     * @param numero
+     * Funcion privada que agrega una cueanta bancaria en la primera posicion vacia que encuentra
+     * si no encuentra una posicion vacia es porque el arreglo estaba lleno, tiene todos los permisos para agregar cuentas;
+     * @param nombre nombre del duenio de la cuenta
+     * @param tipo tipo de cuenta creada
+     * @param numero numero de la cuenta
      * @return true iff was added
      */
     private boolean add(String nombre, String tipo, int numero){
@@ -301,9 +310,8 @@ public class Banco {
     
     /**
      * Hace todo el proceso para agregar una nueva cuenta bancaria
-     * @return true if was added
      */
-    public boolean addAccount(){
+    public void addAccount(){
         boolean agregada = false;
         if(!activo.validateTipo(Usuario.LIMITADO)){
             System.out.print("Ingrese el Nombre del Cliente: ");
@@ -329,11 +337,11 @@ public class Banco {
         }else{
             System.out.println("\033[31mNo Tiene Permiso para Agregar cuenta Ingeniero!");
         }
-        return agregada;
     }
     
     /**
-     * Especificamente hace el deposito en la cuenta, y tiene todos los permisos para hacerlo
+     * Funcion privada que hace el deposito en la cuenta, y tiene todos los permisos para hacerlo.
+     * solo puede ser usada por el banco.
      * siempre y cuando la cuenta exista.
      * @param num numero de la cuenta bancaria
      * @param monto monto a depositar
@@ -347,9 +355,8 @@ public class Banco {
     
     /**
      * Metodo que se encarga de hacer todo el proceso de deposito
-     * @return true if was deposited
      */
-    public boolean depositBalance(){
+    public void depositBalance(){
         boolean state = false;
         do{
             System.out.print("Ingrese el Numero de Cuenta: ");
@@ -366,9 +373,15 @@ public class Banco {
                 System.out.println("\033[31mLa Cuenta no Existe!");
             }
         }while(!state);
-        return state;
     }
     
+    /**
+     * Funcion privada de uso exclusivo del banco para retirar dinero de la cuenta
+     * con todos los permisos.
+     * @param index indice de la cuenta a la que se la va a retirar el monto
+     * @param monto el monot a ser retirado
+     * @return true if was removed (is remove if there are approch money)
+     */
     private boolean remove(int index, double monto){
         boolean removed = cuentas[index].retirarSaldo(monto);
         if(removed){
@@ -380,7 +393,11 @@ public class Banco {
         return removed;
     }
     
-    public boolean removeBalance(){
+    /**
+     * Hace el proceso para remover dinero de una cuenta vancaria 
+     * validando todo lo que sea necesario.
+     */
+    public void removeBalance(){
         boolean state=false;
         if(!activo.validateTipo(Usuario.LIMITADO)){
             do{
@@ -401,6 +418,60 @@ public class Banco {
         }else{
             System.out.println("\033[31mNo tiene permisos para retirar dinero Ingeniero!");
         }
-        return state;
+    }
+    
+    /**
+     * Registra los intereses para todas las cuentas activas que tenga el banco
+     */
+    public void recordInterest(){
+        for (int i = 0; i < cuentas.length; i++) {
+            if(cuentas[i]!=null){
+                cuentas[i].registrarInteres();
+            }
+        }
+    }
+    
+    /**
+     * Transfiere dinero de una cuenta a otra validando lo que sea necesario
+     * como que usuario esta haciendo la transferencia y que halla suficiente dinero
+     * para ser retirado
+     */
+    public void trasferBalance(){
+        boolean state = false;
+        if(!activo.validateTipo(Usuario.LIMITADO)){
+            do{
+                System.out.print("Numero de Cuenta Origen: ");
+                int origen = scan.nextInt();
+                if(origen==-1){break;}
+                System.out.print("Numero de cuenta Destino: ");
+                int destino = scan.nextInt();
+                if(destino==-1){break;}
+                
+                if(origen==destino){
+                    System.out.println("\033[31mLos numeros de cuenta deben ser distintos!");
+                    continue;
+                }
+                
+                int indexO = validarIndex(origen, !state);
+                int indexD = validarIndex(destino, state);
+                
+                if(indexO>=0 && indexD>=0){
+                    System.out.print("Ingrese el monto a Transferir: ");
+                    double monto = scan.nextDouble();
+                    state = cuentas[indexO].transferencia(monto, cuentas[indexD]);
+                    if(state){
+                        System.out.printf("Transferidos: %.2f de %d a %d",
+                                monto, origen, destino);
+                    }else{
+                        System.out.printf("\033[31mNo hay suficiente dinero para retirar de la cuenta origen! %d\n",
+                                origen);
+                    }
+                }else{
+                    System.out.println("\033[31mNumeros de Cuenta Incorrectos!");
+                }
+            }while(!state);
+        }else{
+            System.out.println("\033[31mNo tiene permisos para hacer trasferencias Ingeniero!");
+        }
     }
 }

@@ -140,7 +140,10 @@ public class CuentaBancaria {
      */
     public void registrarInteres(){
         if(activa){
+            double saldoViejo = saldo;
             addSaldo(saldo*tasaInteres, false);
+            System.out.printf("\tIntereses en cuenta: %d; saldo: %.2f - tasa: %.2f - Intereses: %.2f - Total: %.2f\n",
+                    numero, saldoViejo, tasaInteres, (saldoViejo*tasaInteres), saldo);
         }
     }
     
