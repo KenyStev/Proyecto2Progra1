@@ -17,7 +17,7 @@ public class Banco {
     private Usuario users[], activo;
     private int counterOfUsers=0;
     
-    public Banco() { 
+    public Banco() {
         this.activo = null;
         cuentas = new CuentaBancaria[200];
         users = new Usuario[50];
@@ -47,7 +47,7 @@ public class Banco {
      * y si lo hay, entonces hace el login
      * @return true if was logged or false if wasn't logged
      */
-    public boolean login(){ 
+    public boolean login(){
         boolean state = false;
         System.out.print("Ingrese nombre de Usuario: ");
         String user= scan.next();
@@ -85,21 +85,21 @@ public class Banco {
         int index = -1;
         if(activa){
 //            if(validarCuentaActiva(numero)){
-                for (int i = 0; i<cuentas.length; i++) {
-                    if(cuentas[i] != null && cuentas[i].validarCuenta(numero) && cuentas[i].getState()){
-                        index=i;
-                        break;
-                    }
+            for (int i = 0; i<cuentas.length; i++) {
+                if(cuentas[i] != null && cuentas[i].validarCuenta(numero) && cuentas[i].getState()){
+                    index=i;
+                    break;
                 }
+            }
 //            }
         }else{
 //            if(validarCuenta(numero)){
-                for (int i = 0; i<cuentas.length; i++) {
-                    if(cuentas[i] != null && cuentas[i].validarCuenta(numero)){
-                        index=i;
-                        break;
-                    }
+            for (int i = 0; i<cuentas.length; i++) {
+                if(cuentas[i] != null && cuentas[i].validarCuenta(numero)){
+                    index=i;
+                    break;
                 }
+            }
 //            }
         }
         return index;
@@ -108,7 +108,7 @@ public class Banco {
     /**
      * Valida que la cuenta exista en el arreglo de cuentas
      * @param numero
-     * @return 
+     * @return
      */
     public boolean validarCuenta(int numero){
         boolean existe = false;
@@ -142,7 +142,7 @@ public class Banco {
             }
         }
     }
-
+    
     /**
      * Si el usuario actual es de tipo administrador y la cantidad de usuarios es menor de 50
      * pide ingresar el email, nombre, password y tipo para crear un nuevo usuario.
@@ -154,34 +154,122 @@ public class Banco {
             do{ System.out.print("Ingrese su email: ");
             email = scan.next();
             ciclo = false;
-                for (int x=0; x<counterOfUsers; x++) {
-                    if(users[x].getEmail().equals(email)){
+            for (int x=0; x<counterOfUsers; x++) {
+                if(users[x].getEmail().equals(email)){
                     ciclo = true;
-                        System.err.println("Ese email ya existe");
-                    }
+                    System.err.println("Ese email ya existe");
                 }
+            }
             }while(ciclo);
             System.out.print("Ingrese su nombre completo: ");
             nombre = scan.next();
             System.out.print("Ingrese el password: ");
             pass = scan.next();
-            System.out.println("Ingrese el tipo de usuario: ");
-            tipo = scan.next();
+            tipo = Usuario.selectUserType();
             users[counterOfUsers++] = new Usuario(email, pass, nombre, tipo);
         }
         else{
             System.out.println("\033[31mNo se permite ingresar un nuevo usuario");
         }
     }
+    private void searchUser(boolean estado){
+        for(CuentaBancaria temp : cuentas){
+            if(temp!=null && temp.getState()==estado){
+                temp.toString();
+            }
+        }
+    }
+    /**
+     * Mustra los datos de codigo-nombre-saldo-tipo-fecha_creacion de cada cuenta bancaria
+     * activas o desactivadas segun escoja el usuario
+     */        
+    public void listAccounts(){
+        System.out.println("Quiere listar \n1-Activas \n2-Desactivadas ");
+        int type = scan.nextInt();
+        switch(type){
+            case 1: searchUser(true);
+            break;
+            case 2: searchUser(false);
+            break;
+            default: System.out.println("Tipo de cuenta invalido");
+        }
+    }
     
+    private int searchAccount(String type){
+        int cant=0;
+        for(CuentaBancaria temp: cuentas){
+            if(temp!=null && temp.getTipo().equals(type) && temp.getState()==true){
+            cant++;
+            }
+        }
+        return cant;
+    }
+    /**
+     * Muestra el total de cuentas Planilla, Normal y VIP que el banco tiene activas
+     */
+    public void showAccounts(){
+        System.out.println("Total de cuentas Planilla: "+searchAccount("PLANILLA"));
+        System.out.println("Total de cuentas Normal: "+searchAccount("NORMAL"));
+        System.out.println("Total de cuentas VIP: "+searchAccount("VIP"));
+    }
+    /**
+     * Mustra la suma en lempiras de los depositos hechos por tidas las cuentas
+     */
+    public void totalMontoDepositos(){
+        int suma = 0;
+        for(CuentaBancaria temp : cuentas){
+            if(temp!=null){
+                suma += temp.getMontoDepositosHechos();
+            }
+        }
+        System.out.println("Total de lempiras depositados: "+suma);
+    }
+    /**
+     * Calcula la cantidad total de depositos o retiros hechos y lo imprime en pantalla
+     * @param retDep 
+     */
+    public void totalRetDep(String retDep){
+        int suma = 0;
+        for(CuentaBancaria temp: cuentas){
+            if(temp!=null){
+                switch(retDep){
+                    case "retiros": suma += temp.getRetirosHechos();
+                        break;
+                    case "depositos": suma += temp.getDepositosHechos();
+                }
+            }
+        }
+        System.out.println("Total de "+retDep+" hechos: "+suma);
+    }
+    /**
+     * Calcula el total de transferencias hechas y su total en lempiras transferidos y lo imprime en pantalla
+     */
+    public void totalTrans(){
+        int suma= 0, sumaMonto = 0;
+        for(CuentaBancaria temp : cuentas){
+            if(temp!=null){
+                suma += temp.getTransHechas();
+                sumaMonto += temp.getMontoTransHechas();
+            }
+        }
+        System.out.println("Total de transferencias hechas: "+suma+"\nTotal en "
+                + "lempiras transferidos: "+sumaMonto+"lps.");
+    }
+    
+    /**
+     * Muestra un menu para ver los reportes del banco
+     */
     public void records(){
         boolean bul = true;
         do{ switch(recordsMenu()){
-            case 1:
+            case 1: listAccounts();
                 break;
-            case 2:
+            case 2: showAccounts();
+                    totalMontoDepositos();
                 break;
-            case 3: 
+            case 3:totalRetDep("retiros");
+                   totalRetDep("depositos");
+                   totalTrans();
                 break;
             case 4: activo.Profile();
                 break;
@@ -252,7 +340,7 @@ public class Banco {
      */
     private boolean deposit(int index, double monto){
         cuentas[index].addSaldo(monto, true);
-        System.out.printf("Depositado: %.2f en cuenta: %d. Saldo Actual: %.2f\n", 
+        System.out.printf("Depositado: %.2f en cuenta: %d. Saldo Actual: %.2f\n",
                 monto, cuentas[index].getNum(), cuentas[index].getSaldo());
         return true;
     }
@@ -284,7 +372,7 @@ public class Banco {
     private boolean remove(int index, double monto){
         boolean removed = cuentas[index].retirarSaldo(monto);
         if(removed){
-            System.out.printf("Retirados: %.2f de la cuenta: %d. Saldo Actual: %.2f\n", 
+            System.out.printf("Retirados: %.2f de la cuenta: %d. Saldo Actual: %.2f\n",
                     monto, cuentas[index].getNum(), cuentas[index].getSaldo());
         }else{
             System.out.println("\033[31mMonto mayor al saldo disponible!");

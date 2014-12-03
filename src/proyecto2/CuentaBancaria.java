@@ -162,6 +162,11 @@ public class CuentaBancaria {
     public boolean getState(){
         return activa;
     }
+
+    public String getTipo() {
+        return tipo;
+    }
+    
     
     public int getRetirosHechos(){
         return retirosHechos;

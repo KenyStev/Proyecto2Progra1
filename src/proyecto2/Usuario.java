@@ -14,8 +14,8 @@ import java.util.Scanner;
 public class Usuario {
     private String email, password, name, tipo;
     private Date fecha;
-    public static String ADMINISTRADOR = "administrador",
-            CONTENIDO = "contenido", LIMITADO = "limitado";
+    public static String ADMINISTRADOR = "ADMINISTRADOR",
+            CONTENIDO = "CONTENIDO", LIMITADO = "LIMITADO";
     Scanner scan = new Scanner(System.in);
     
     /**
@@ -102,11 +102,23 @@ public class Usuario {
         }
         return access;
     }
-    
+    /**
+     * Muestra un menu para que el usuario escoja el tipo de usuario
+     * @return un String con el tipo de usuario seleccionado
+     */
     public static String selectUserType(){
-    do{
-       System.out.printf("") 
-    }while(true);
+        Scanner scan = new Scanner(System.in);
+        do{
+            System.out.printf("\n***TIPOS DE USUARIO***\n1-%s\n2-%s\n3-%s\nEscoja uno: ",
+                    ADMINISTRADOR, CONTENIDO, LIMITADO);
+            int opt = scan.nextInt();
+            switch(opt){
+                case 1: return ADMINISTRADOR;
+                case 2: return CONTENIDO;
+                case 3: return LIMITADO;
+                default: System.out.println("Opcion Incorrecta");
+            }
+        }while(true);
     }
     /**
      * Muestra un submenu para cambiar el email, password y nombre del usuario
