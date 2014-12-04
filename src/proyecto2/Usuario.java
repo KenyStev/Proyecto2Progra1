@@ -133,7 +133,13 @@ public class Usuario {
             System.out.println("\t4.Regresar al menu de Reportes");
             System.out.print("Escoja su opcion: ");
             opt = scan.nextInt();
-            if(opt>0 && opt!=4){
+            if(opt==4){
+               break;
+            }
+            else if(opt<1 || opt > 4){
+                System.out.println("Opcion Invalida");
+            }
+            else{
                 System.out.println("Ingrese su password");
                 if(pass(scan.next())){
                     switch(opt){

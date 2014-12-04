@@ -58,7 +58,7 @@ public class CuentaBancaria {
                 case 1: return PLANILLA;
                 case 2: return NORMAL;
                 case 3: return VIP;
-                default: System.err.println("Opcion Incorrecta!");
+                default: System.out.println("\033[31mOpcion Incorrecta!");
             }
         }while(true);
     }

@@ -55,7 +55,7 @@ public class Banco {
         String pass= scan.next();
         
         for (Usuario usuario : users) {
-            if(usuario != null && usuario.access(pass, user)){ //cambiando funcion access
+            if(usuario != null && usuario.access(pass, user)){
                 activo = usuario;
                 state = true;
                 break;
@@ -80,7 +80,7 @@ public class Banco {
      * @param activa espera el tipo de cuenta que desea validar si es true son las activas sino son todas;
      * @return index of position or -1 if don't exist
      */
-    private int validarIndex(int numero, boolean activa){
+    private int searchIndex(int numero, boolean activa){
         int index = -1;
         if(activa){
             for (int i = 0; i<cuentas.length; i++) {
@@ -117,15 +117,6 @@ public class Banco {
         return existe;
     }
     
-    private boolean validarCuentaActiva(int numero){
-        for (CuentaBancaria cuenta : cuentas) {
-            if(cuenta != null && cuenta.validarCuenta(numero) && cuenta.isActiva()){
-                return true;
-            }
-        }
-        return false;
-    }
-    
     /**
      * Reemplaza el usuario activo en el espacio de donde salio
      * en caso de que haya sido modificado el perfil
@@ -153,7 +144,7 @@ public class Banco {
             for (int x=0; x<counterOfUsers; x++) {
                 if(users[x].getEmail().equals(email)){
                     ciclo = true;
-                    System.err.println("Ese email ya existe");
+                    System.out.println("\033[31mEse email ya existe");
                 }
             }
             }while(ciclo);
@@ -180,7 +171,7 @@ public class Banco {
      * activas o desactivadas segun escoja el usuario
      */        
     public void listAccounts(){
-        System.out.println("Que tipo quiere listar: \n1-Activas \n2-Desactivadas ");
+        System.out.print("Que tipo quiere listar: \n1-Activas \n2-Desactivadas\nEscoja su Opcion: ");
         int type = scan.nextInt();
         switch(type){
             case 1: search(true);
@@ -194,7 +185,7 @@ public class Banco {
     private int searchAccount(String type){
         int cant=0;
         for(CuentaBancaria temp: cuentas){
-            if(temp!=null && temp.getTipo().equals(type) && temp.isActiva()==true){
+            if(temp!=null && temp.validarTypeAccount(type) && temp.isActiva()){
             cant++;
             }
         }
@@ -204,9 +195,9 @@ public class Banco {
      * Muestra el total de cuentas Planilla, Normal y VIP que el banco tiene activas
      */
     public void showAccounts(){
-        System.out.println("Total de cuentas Planilla: "+searchAccount("PLANILLA"));
-        System.out.println("Total de cuentas Normal: "+searchAccount("NORMAL"));
-        System.out.println("Total de cuentas VIP: "+searchAccount("VIP"));
+        System.out.println("Total de cuentas Planilla: "+searchAccount(CuentaBancaria.PLANILLA));
+        System.out.println("Total de cuentas Normal: "+searchAccount(CuentaBancaria.NORMAL));
+        System.out.println("Total de cuentas VIP: "+searchAccount(CuentaBancaria.VIP));
     }
     /**
      * Mustra la suma en lempiras de los depositos hechos por tidas las cuentas
@@ -225,31 +216,23 @@ public class Banco {
      * @param retDep 
      */
     public void totalRetDep(String retDep){
-        int suma = 0;
+        int suma = 0, sumaMonto = 0;
         for(CuentaBancaria temp: cuentas){
             if(temp!=null){
                 switch(retDep){
                     case "retiros": suma += temp.getRetirosHechos();
+                                    sumaMonto += temp.getMontoRetirosHechos();
                         break;
                     case "depositos": suma += temp.getDepositosHechos();
+                                      sumaMonto += temp.getMontoDepositosHechos();
+                        break;
+                    case "transferencias": suma += temp.getTransHechas();
+                                           sumaMonto += temp.getMontoTransHechas();
                 }
             }
         }
-        System.out.println("Total de "+retDep+" hechos: "+suma);
-    }
-    /**
-     * Calcula el total de transferencias hechas y su total en lempiras transferidos y lo imprime en pantalla
-     */
-    public void totalTrans(){
-        int suma= 0, sumaMonto = 0;
-        for(CuentaBancaria temp : cuentas){
-            if(temp!=null){
-                suma += temp.getTransHechas();
-                sumaMonto += temp.getMontoTransHechas();
-            }
-        }
-        System.out.println("Total de transferencias hechas: "+suma+"\nTotal en "
-                + "lempiras transferidos: "+sumaMonto+"lps.");
+        System.out.println("Total de "+retDep+" hechos: "+suma+"\nTotal en lempiras "
+                + "transferidos: "+sumaMonto+" lps.");
     }
     
     /**
@@ -265,7 +248,7 @@ public class Banco {
                 break;
             case 3:totalRetDep("retiros");
                    totalRetDep("depositos");
-                   totalTrans();
+                   totalRetDep("transferencias");
                 break;
             case 4: activo.Profile();
                 break;
@@ -351,7 +334,7 @@ public class Banco {
             if(num==-1){
                 break;
             }
-            int index = validarIndex(num, state);
+            int index = searchIndex(num, state);
             if(index>=0){
                 System.out.print("Ingrese el monto a depositar: ");
                 double monto = scan.nextDouble();
@@ -393,7 +376,7 @@ public class Banco {
                 if(num==-1){
                     break;
                 }
-                int index = validarIndex(num, !state);
+                int index = searchIndex(num, !state);
                 if(index>=0){
                     System.out.print("Ingrese el monto a Retirar: ");
                     double monto = scan.nextDouble();
@@ -439,8 +422,8 @@ public class Banco {
                     continue;
                 }
                 
-                int indexO = validarIndex(origen, !state);
-                int indexD = validarIndex(destino, state);
+                int indexO = searchIndex(origen, !state);
+                int indexD = searchIndex(destino, state);
                 
                 if(indexO>=0 && indexD>=0){
                     System.out.print("Ingrese el monto a Transferir: ");
@@ -466,7 +449,7 @@ public class Banco {
         if(!activo.validateTipo(Usuario.LIMITADO)){
             System.out.print("Ingrese el codigo de la cuenta:");
             int num = scan.nextInt();
-            int index = validarIndex(num, true);
+            int index = searchIndex(num, true);
             if(index>=0){
                 System.out.print("Desea desactivar la cuenta? (Si/No): ");
                 String resp = scan.next();
@@ -474,10 +457,10 @@ public class Banco {
                     cuentas[index].disable();
                 }
             }else{
-                System.out.println("\033[31La Cuenta no existe o esta desactivada!");
+                System.out.println("\033[31mLa Cuenta no existe o esta desactivada!");
             }
         }else{
-            System.out.println("\033[31No tiene permisos para desctivar cuentas Ingeniero!");
+            System.out.println("\033[31mNo tiene permisos para desctivar cuentas Ingeniero!");
         }
     }
     
@@ -485,19 +468,19 @@ public class Banco {
         if(activo.validateTipo(Usuario.ADMINISTRADOR)){
             System.out.print("Ingrese el numero de cuenta: ");
             int num = scan.nextInt();
-            int index = validarIndex(num, false);
+            int index = searchIndex(num, false);
             if(index>=0){
-                System.out.print("Realmente desea cancelar la cuenta: "+cuentas[index].getNum());
+                System.out.printf("Realmente desea cancelar la cuenta %d? (Si/No): ", cuentas[index].getNum());
                 String resp = scan.next();
                 if(resp.equalsIgnoreCase("si")){
                     System.out.println("Cancelada cuenta: "+cuentas[index].toString());
                     cuentas[index] = null;
                 }
             }else{
-                System.out.println("\033[31La cuenta no existe!");
+                System.out.println("\033[31mLa cuenta no existe!");
             }
         }else{
-            System.out.println("\033[31No tiene permisos para cancelar cuentas Ingeniero!");
+            System.out.println("\033[31mNo tiene permisos para cancelar cuentas Ingeniero!");
         }
     }
 }
