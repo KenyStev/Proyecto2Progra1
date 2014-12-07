@@ -18,6 +18,10 @@ public class Usuario {
             CONTENIDO = "CONTENIDO", LIMITADO = "LIMITADO";
     Scanner scan = new Scanner(System.in);
     
+    public Usuario(Usuario user){
+        this(user.getEmail(), user.getPassword(), user.getNombre(), user.getType());
+    }
+    
     /**
      *
      * @param email
@@ -55,6 +59,10 @@ public class Usuario {
     
     public String getNombre() {
         return name;
+    }
+    
+    public String getType(){
+        return tipo;
     }
     /**
      * Indica si el usuario es de el tipo del parametro

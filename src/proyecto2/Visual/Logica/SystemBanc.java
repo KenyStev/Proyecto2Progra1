@@ -34,7 +34,7 @@ public class SystemBanc {
         return bank.login(user, pass);
     }
     
-    public static void callsMenuBank(int opt){
+    public static boolean callsMenuBank(int opt, Usuario user, CuentaBancaria account, CuentaBancaria account2){
 //        boolean state = true;
 //        do{
 //            int resp = bank.menu();
@@ -61,8 +61,8 @@ public class SystemBanc {
                     bank.cancelAccount();
                     break;
                 case 8: //Crear Usuarios
-                    bank.createUser();
-                    break;
+                    return bank.createUser(user);
+//                    break;
                 case 9: //Reportes
                     bank.records();
                     break;
@@ -75,6 +75,17 @@ public class SystemBanc {
                     break;
             }
 //        }while(state);
+            return false;
+    }
+    
+    public static String title(){
+        return "   * *                * *\n"+
+        "  ******             ******\n"+
+        " *** *              *** *\n"+
+        "  **** YSTEM BANKERO ****\n"+
+        "  * ***              * ***\n"+
+        "******             ******\n"+
+        "  * *                * *";
     }
     
 }
