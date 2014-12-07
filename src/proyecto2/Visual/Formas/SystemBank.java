@@ -57,6 +57,11 @@ public class SystemBank extends javax.swing.JFrame {
         lblUser.setText("jLabel1");
 
         btnAddAccount.setText("Agregar Cuenta");
+        btnAddAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddAccountActionPerformed(evt);
+            }
+        });
 
         btnDepositBalance.setText("Depositar en cuenta");
 
@@ -86,8 +91,8 @@ public class SystemBank extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblUser)
+                .addGap(390, 390, 390)
+                .addComponent(lblUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblLogout))
             .addGroup(layout.createSequentialGroup()
@@ -149,6 +154,13 @@ public class SystemBank extends javax.swing.JFrame {
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         SystemBanc.callsMenuBank(11);
     }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnAddAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAccountActionPerformed
+        // TODO add your handling code here:
+        AgregarCuenta nueva = new AgregarCuenta();
+        nueva.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnAddAccountActionPerformed
 
     /**
      * @param args the command line arguments

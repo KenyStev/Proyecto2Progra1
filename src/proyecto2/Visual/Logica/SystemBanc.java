@@ -40,7 +40,7 @@ public class SystemBanc {
 //            int resp = bank.menu();
             switch(opt){
                 case 1: //Agregar una cuenta.
-                    //bank.addAccount();
+                    bank.addAccount();
                     break;
                 case 2: //Depositar en cuenta.
                     bank.depositBalance();

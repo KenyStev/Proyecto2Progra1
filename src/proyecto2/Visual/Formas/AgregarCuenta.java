@@ -6,14 +6,13 @@
 package proyecto2.Visual.Formas;
 
 import javax.swing.JOptionPane;
-import proyecto2.Visual.Logica.Banco;
+import proyecto2.Visual.Logica.*;
 
 /**
  *
  * @author Rolando
  */
 public class AgregarCuenta extends javax.swing.JFrame {
-    public Banco bank = new Banco();
     /**
      * Creates new form AgregarCuenta
      */
@@ -121,13 +120,13 @@ public class AgregarCuenta extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nombre = txtNombre.getText(), tipo = cbTipo.getSelectedItem().toString();
         int numero = Integer.parseInt(txtCodigo.getText());
-        boolean added = bank.addAccount(nombre, numero, tipo);
-        if(added){
-            JOptionPane.showMessageDialog(this, "Agregada Exitosamente!", "Agregada", JOptionPane.INFORMATION_MESSAGE);
+        SystemBanc.callsMenuBank(1);
+        /*if(added){
+        JOptionPane.showMessageDialog(this, "Agregada Exitosamente!", "Agregada", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
-            JOptionPane.showMessageDialog(this, "Error al agregar cuenta!", "No Agregada", JOptionPane.ERROR_MESSAGE);
-        }
+        JOptionPane.showMessageDialog(this, "Error al agregar cuenta!", "No Agregada", JOptionPane.ERROR_MESSAGE);
+        }*/
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
