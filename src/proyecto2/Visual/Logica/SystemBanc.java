@@ -12,7 +12,7 @@ package proyecto2.Visual.Logica;
  */
 public class SystemBanc {
 
-    static Banco bank = new Banco();
+    public static Banco bank = new Banco();
     
     /**
      * @param args the command line arguments
@@ -26,24 +26,19 @@ public class SystemBanc {
             System.out.println("\033[32m  * \033[33m***              \033[32m* \033[33m***");
             System.out.println("\033[33m******             ******");
             System.out.println("\033[32m  * *                * *");
-            Login();
+//            Login();
         }
     }
     
-    public static void Login(){
-        boolean state = bank.login();
-        if(state){
-            callsMenuBank();
-        }else{
-            System.out.println("\033[31mUsuario o contrasenia Incorrecto!");
-        }
+    public static boolean Login(String user, String pass){
+        return bank.login(user, pass);
     }
     
-    public static void callsMenuBank(){
-        boolean state = true;
-        do{
-            int resp = bank.menu();
-            switch(resp){
+    public static void callsMenuBank(int opt){
+//        boolean state = true;
+//        do{
+//            int resp = bank.menu();
+            switch(opt){
                 case 1: //Agregar una cuenta.
                     //bank.addAccount();
                     break;
@@ -73,13 +68,13 @@ public class SystemBanc {
                     break;
                 case 10: //Cerrar Sesión
                     bank.logout();
-                    state = false;
+//                    state = false;
                     break;
                 case 11: //Salir
                     System.exit(0);
                     break;
             }
-        }while(state);
+//        }while(state);
     }
     
 }
