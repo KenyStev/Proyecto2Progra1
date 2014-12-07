@@ -48,12 +48,8 @@ public class Banco {
      * y si lo hay, entonces hace el login
      * @return true if was logged or false if wasn't logged
      */
-    public boolean login(){
+    public boolean login(String user, String pass){
         boolean state = false;
-        System.out.print("Ingrese nombre de Usuario: ");
-        String user= scan.next();
-        System.out.print("Ingrese pasword: ");
-        String pass= scan.next();
         
         for (Usuario usuario : users) {
             if(usuario != null && usuario.access(pass, user)){
@@ -507,5 +503,9 @@ public class Banco {
         }else{
             System.out.println("\033[31mNo tiene permisos para cancelar cuentas Ingeniero!");
         }
+    }
+    
+    public Usuario getActivo(){
+        return activo;
     }
 }
