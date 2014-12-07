@@ -18,8 +18,8 @@ public class CuentaBancaria {
     private double tasaInteres, saldo;
     private boolean activa;
     private Date fechaCreacion;
-    private int retirosHechos=0, depositosHechos=0, transHechas=0;
-    private double montoRetiros=0, montoDepositos=0, montoTrans=0;
+    public static int retirosHechos=0, depositosHechos=0, transHechas=0;
+    public static double montoRetiros=0, montoDepositos=0, montoTrans=0;
     
     public static String PLANILLA="PLANILLA", NORMAL="NORMAL", VIP="VIP";
 
@@ -219,6 +219,6 @@ public class CuentaBancaria {
      */
     @Override
     public String toString(){
-        return numero + " - " + name + " - " + saldo + " - " + tipo + " - " + fechaCreacion.toString();
+        return numero + "   \t" + name + "\t\t" + saldo + "\t" + tipo + "   \t" + fechaCreacion.toString();
     }
 }
