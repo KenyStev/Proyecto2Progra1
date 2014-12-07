@@ -271,39 +271,21 @@ public class Banco {
     /**
      * Hace todo el proceso para agregar una nueva cuenta bancaria
      */
-    public void addAccount(){
-        boolean agregada = false;
+    public boolean addAccount(String nombre, int num,String tipo){
+        boolean agregada;
         if(!activo.validateTipo(Usuario.LIMITADO)){
-            System.out.print("Ingrese el Nombre del Cliente: ");
-            String nombre = scan.next();
-            int num;
-            do{
-                do{
-                System.out.print("Ingrese numero de Cuenta: ");
-                num = scan.nextInt();
-                if(num>=-1 && num!=0){
-                    break;
-                }
-                else{
-                    System.out.println("Numero de cuenta invalido!");
-                }
-                }while(true);
-                if(num==-1){
-                    break;
+                if(num<1){
+                    return false;
                 }
                 if(!validarCuenta(num)){
-                    String tipo = CuentaBancaria.selectAccountType();
                     agregada = add(nombre, tipo, num); //intenta agregar la cuenta y devuelve true si fue agregada
-                    if(!agregada){ //Si no fue agregar es porque esta lleno el arreglo
-                        System.out.println("\033[31mLimite de cuentas Lleno!");
-                        break;
-                    }
+                    return agregada;
+                    
                 }else{
-                    System.out.println("\033[31mYa existe una cuenta con ese numero!");
+                    return false;
                 }
-            }while(!agregada);
         }else{
-            System.out.println("\033[31mNo Tiene Permiso para Agregar cuenta Ingeniero!");
+            return false;
         }
     }
     
