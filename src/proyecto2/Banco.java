@@ -149,6 +149,7 @@ public class Banco {
             }
             }while(ciclo);
             System.out.print("Ingrese su nombre completo: ");
+            scan.useDelimiter("\n");
             nombre = scan.next();
             System.out.print("Ingrese el password: ");
             pass = scan.next();
@@ -288,8 +289,16 @@ public class Banco {
             String nombre = scan.next();
             int num;
             do{
+                do{
                 System.out.print("Ingrese numero de Cuenta: ");
                 num = scan.nextInt();
+                if(num>=-1 && num!=0){
+                    break;
+                }
+                else{
+                    System.out.println("Numero de cuenta invalido!");
+                }
+                }while(true);
                 if(num==-1){
                     break;
                 }
@@ -328,6 +337,7 @@ public class Banco {
      */
     public void depositBalance(){
         boolean state = false;
+        double monto;
         do{
             System.out.print("Ingrese el Numero de Cuenta: ");
             int num = scan.nextInt();
@@ -336,8 +346,16 @@ public class Banco {
             }
             int index = searchIndex(num, state);
             if(index>=0){
+                do{
                 System.out.print("Ingrese el monto a depositar: ");
-                double monto = scan.nextDouble();
+                monto = scan.nextDouble();
+                if(monto >= 1){
+                   break;
+                }
+                else{
+                    System.out.println("El monto debe ser un numero positivo!");
+                }
+                }while(true);
                 state = deposit(index, monto);
             }else{
                 System.out.println("\033[31mLa Cuenta no Existe!");
@@ -369,6 +387,7 @@ public class Banco {
      */
     public void removeBalance(){
         boolean state=false;
+        double monto;
         if(!activo.validateTipo(Usuario.LIMITADO)){
             do{
                 System.out.print("Ingrese el Numero de la Cuenta: ");
@@ -378,8 +397,16 @@ public class Banco {
                 }
                 int index = searchIndex(num, !state);
                 if(index>=0){
-                    System.out.print("Ingrese el monto a Retirar: ");
-                    double monto = scan.nextDouble();
+                    do{
+                        System.out.print("Ingrese el monto a Retirar: ");
+                        monto = scan.nextDouble();
+                        if(monto >=1 ){
+                            break;
+                        }
+                        else{
+                            System.out.println("El monto debe ser un numero positivo");
+                        }
+                    }while(true);
                     state = remove(index, monto);
                 }else{
                     System.out.println("\033[31mNumero de cuenta no valido!");
@@ -408,6 +435,7 @@ public class Banco {
      */
     public void trasferBalance(){
         boolean state = false;
+        double monto;
         if(!activo.validateTipo(Usuario.LIMITADO)){
             do{
                 System.out.print("Numero de Cuenta Origen: ");
@@ -426,8 +454,16 @@ public class Banco {
                 int indexD = searchIndex(destino, state);
                 
                 if(indexO>=0 && indexD>=0){
-                    System.out.print("Ingrese el monto a Transferir: ");
-                    double monto = scan.nextDouble();
+                    do{
+                        System.out.print("Ingrese el monto a Transferir: ");
+                        monto = scan.nextDouble();
+                        if(monto >= 1){
+                            break;
+                        }
+                        else{
+                            System.out.println("El monto debe ser positivo!");
+                        }
+                    }while(true);
                     state = cuentas[indexO].transferencia(monto, cuentas[indexD]);
                     if(state){
                         System.out.printf("Transferidos: %.2f de %d a %d",
