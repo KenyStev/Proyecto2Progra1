@@ -3,7 +3,7 @@
 * To change this template file, choose Tools | Templates
 * and open the template in the editor.
 */
-package proyecto2;
+package proyecto2.Visual.Logica;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Scanner;
