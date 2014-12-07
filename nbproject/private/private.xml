@@ -3,10 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/zerokull/NetBeansProjects/Proyecto2Progra1/src/proyecto2/Usuario.java</file>
+            <file>file:/home/zerokull/NetBeansProjects/Proyecto2Progra1/src/proyecto2/CuentaBancaria.java</file>
+            <file>file:/home/zerokull/NetBeansProjects/Proyecto2Progra1/src/proyecto2/Banco.java</file>
+            <file>file:/home/zerokull/NetBeansProjects/Proyecto2Progra1/src/proyecto2/SystemBanc.java</file>
+        </group>
+=======
+<<<<<<< HEAD
+        <group>
             <file>file:/C:/Users/Rolando/Documents/NetBeansProjects/Proyecto2/src/proyecto2/CuentaBancaria.java</file>
             <file>file:/C:/Users/Rolando/Documents/NetBeansProjects/Proyecto2/src/proyecto2/Usuario.java</file>
             <file>file:/C:/Users/Rolando/Documents/NetBeansProjects/Proyecto2/src/proyecto2/Banco.java</file>
             <file>file:/C:/Users/Rolando/Documents/NetBeansProjects/Proyecto2/src/proyecto2/SystemBanc.java</file>
         </group>
+<<<<<<< HEAD
+=======
+=======
+        <group/>
+>>>>>>> 93ce6e54f66e11772354baf17a704891e67f1d97
+>>>>>>> 9a90d4a771ff4ad7d110ebfb98a0a106a68d064f
+>>>>>>> 899004ebb97fc702f876f7e129de6c49598c557a
     </open-files>
 </project-private>
