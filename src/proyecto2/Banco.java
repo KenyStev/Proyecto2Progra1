@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class Banco {
     private Scanner scan = new Scanner(System.in);
     private CuentaBancaria cuentas[];
-    private Usuario users[], activo;
+    private Usuario users[], activo;    
     private int counterOfUsers=0;
     
     public Banco() {
@@ -161,6 +161,7 @@ public class Banco {
         }
     }
     private void search(boolean estado){
+        System.out.println("Numero\tNombre\t\tSaldo\tTipo   \tFecha de Creacion");
         for(int i=0; i<cuentas.length; i++){
             if(cuentas[i]!=null && cuentas[i].isActiva()==estado){
                 System.out.println(cuentas[i].toString()); 
@@ -217,23 +218,29 @@ public class Banco {
      * @param retDep 
      */
     public void totalRetDep(String retDep){
-        int suma = 0, sumaMonto = 0;
-        for(CuentaBancaria temp: cuentas){
-            if(temp!=null){
+//        int suma = 0, sumaMonto = 0;
+//        for(CuentaBancaria temp: cuentas){
+//            if(temp!=null){
                 switch(retDep){
-                    case "retiros": suma += temp.getRetirosHechos();
-                                    sumaMonto += temp.getMontoRetirosHechos();
+                    case "retiros": //suma += temp.getRetirosHechos();
+                                    //sumaMonto += temp.getMontoRetirosHechos();
+                        System.out.println("Total de "+retDep+" hechos: "+CuentaBancaria.retirosHechos+"\nTotal en lempiras "
+                                + retDep + ": "+CuentaBancaria.montoRetiros+" lps.");
                         break;
-                    case "depositos": suma += temp.getDepositosHechos();
-                                      sumaMonto += temp.getMontoDepositosHechos();
+                    case "depositos": //suma += temp.getDepositosHechos();
+                                      //sumaMonto += temp.getMontoDepositosHechos();
+                        System.out.println("Total de "+retDep+" hechos: "+CuentaBancaria.depositosHechos+"\nTotal en lempiras "
+                                + retDep + ": "+CuentaBancaria.montoDepositos+" lps.");
                         break;
-                    case "transferencias": suma += temp.getTransHechas();
-                                           sumaMonto += temp.getMontoTransHechas();
+                    case "transferencias": //suma += temp.getTransHechas();
+                                           //sumaMonto += temp.getMontoTransHechas();
+                        System.out.println("Total de "+retDep+" hechos: "+CuentaBancaria.transHechas+"\nTotal en lempiras "
+                                + retDep + ": "+CuentaBancaria.montoTrans+" lps.");
                 }
-            }
-        }
-        System.out.println("Total de "+retDep+" hechos: "+suma+"\nTotal en lempiras "
-                + "transferidos: "+sumaMonto+" lps.");
+//            }
+//        }
+//        System.out.println("Total de "+retDep+" hechos: "+suma+"\nTotal en lempiras "
+//                + retDep + ": "+sumaMonto+" lps.");
     }
     
     /**

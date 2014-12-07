@@ -124,7 +124,7 @@ public class Usuario {
      * Muestra un submenu para cambiar el email, password y nombre del usuario
      */
     public void Profile(){
-        int opt = 0;
+        int opt;
         System.out.println("Email: "+email+", Nombre: "+name+", Fecha de ingreso: "+fecha);
         do{
             System.out.println("\t1.Cambiar mi email");
