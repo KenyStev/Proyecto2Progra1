@@ -37,8 +37,7 @@ public class SystemBanc {
     public static boolean callsMenuBank(int opt, Usuario user, CuentaBancaria account, CuentaBancaria account2){
             switch(opt){
                 case 1: //Agregar una cuenta.
-                    bank.addAccount(account);
-                    break;
+                    return bank.addAccount(account);
                 case 2: //Depositar en cuenta.
                     bank.depositBalance();
                     break;
