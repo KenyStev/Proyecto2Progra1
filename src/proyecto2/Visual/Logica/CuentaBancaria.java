@@ -43,6 +43,10 @@ public class CuentaBancaria {
         active();
     }
     
+    public CuentaBancaria(CuentaBancaria cuenta){
+        this(cuenta.getName(), cuenta.getTipo(), cuenta.getNum());
+    }
+    
     /**
      * Muestra un menu que permite seleccionar un tipo de cuenta bancaria
      * y retorna el tipo seleccionado
@@ -178,8 +182,11 @@ public class CuentaBancaria {
     public String getTipo() {
         return tipo;
     }
-    
-    
+
+    public String getName() {
+        return name;
+    }
+
     public int getRetirosHechos(){
         return retirosHechos;
     }
