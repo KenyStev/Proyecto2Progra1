@@ -84,6 +84,11 @@ public class SystemBank extends javax.swing.JFrame {
         });
 
         btnRecords.setText("Reportes");
+        btnRecords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecordsActionPerformed(evt);
+            }
+        });
 
         btnExit.setText("Salir");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
@@ -152,7 +157,7 @@ public class SystemBank extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
-        SystemBanc.callsMenuBank(10, null, null, null);
+        SystemBanc.bank.logout();
         new Login().setVisible(true);
         dispose();
     }//GEN-LAST:event_lblLogoutMouseClicked
@@ -169,6 +174,11 @@ public class SystemBank extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No tiene Permisos para Crear Usuarios Ingeniero! ", "Error Crear Usuario", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCreateUserActionPerformed
+
+    private void btnRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordsActionPerformed
+        new Records().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnRecordsActionPerformed
 
     /**
      * @param args the command line arguments

@@ -145,28 +145,29 @@ public class Banco {
         return false;
     }
     
-    private void search(boolean estado){
-        System.out.println("Numero\tNombre\t\tSaldo\tTipo   \tFecha de Creacion");
+    private String search(boolean estado){
+        String list = "Numero\tNombre\t\tSaldo\tTipo   \tFecha de Creacion\n";
         for (CuentaBancaria cuenta : cuentas) {
             if (cuenta != null && cuenta.isActiva() == estado) {
-                System.out.println(cuenta.toString());
+                list += cuenta.toString();
             }
         }
+        return list;
     }
     
     /**
      * Mustra los datos de codigo-nombre-saldo-tipo-fecha_creacion de cada cuenta bancaria
      * activas o desactivadas segun escoja el usuario
      */
-    public void listAccounts(){
-        System.out.print("Que tipo quiere listar: \n1-Activas \n2-Desactivadas\nEscoja su Opcion: ");
-        int type = scan.nextInt();
+    public String listAccounts(int type){
+//        System.out.print("Que tipo quiere listar: \n1-Activas \n2-Desactivadas\nEscoja su Opcion: ");
+//        int type = scan.nextInt();
         switch(type){
-            case 1: search(true);
-            break;
-            case 2: search(false);
-            break;
-            default: System.out.println("Tipo de cuenta invalido");
+            case 1: return search(true);
+//            break;
+            case 2: return search(false);
+//            break;
+            default: return null;
         }
     }
     
@@ -183,53 +184,67 @@ public class Banco {
     /**
      * Muestra el total de cuentas Planilla, Normal y VIP que el banco tiene activas
      */
-    public void showAccounts(){
-        System.out.println("Total de cuentas Planilla: "+searchAccount(CuentaBancaria.PLANILLA));
-        System.out.println("Total de cuentas Normal: "+searchAccount(CuentaBancaria.NORMAL));
-        System.out.println("Total de cuentas VIP: "+searchAccount(CuentaBancaria.VIP));
-        System.out.println("Total de lempiras depositados: "+CuentaBancaria.montoDepositos);
+    public String showAccounts(){
+        String list = "";
+        list+="Total de cuentas Planilla: "+searchAccount(CuentaBancaria.PLANILLA);
+        list+="\nTotal de cuentas Normal: "+searchAccount(CuentaBancaria.NORMAL);
+        list+="\nTotal de cuentas VIP: "+searchAccount(CuentaBancaria.VIP);
+        list+="\nTotal de lempiras depositados: "+CuentaBancaria.montoDepositos;
+        return list;
     }
     
     /**
      * Calcula la cantidad total de depositos o retiros hechos y lo imprime en pantalla
      * @param retDep
      */
-    public void totalRetDep(String retDep){
+    public String totalRetDep(String retDep){
+        String list="";
         switch(retDep){
             case "retiros":
-                System.out.println("Total de "+retDep+" hechos: "+CuentaBancaria.retirosHechos+"\nTotal en lempiras "
-                        + retDep + ": "+CuentaBancaria.montoRetiros+" lps.");
+                list="Total de "+retDep+" hechos: "+CuentaBancaria.retirosHechos+"\nTotal en lempiras "
+                        + retDep + ": "+CuentaBancaria.montoRetiros+" lps.";
                 break;
             case "depositos":
-                System.out.println("Total de "+retDep+" hechos: "+CuentaBancaria.depositosHechos+"\nTotal en lempiras "
-                        + retDep + ": "+CuentaBancaria.montoDepositos+" lps.");
+                list="Total de "+retDep+" hechos: "+CuentaBancaria.depositosHechos+"\nTotal en lempiras "
+                        + retDep + ": "+CuentaBancaria.montoDepositos+" lps.";
                 break;
             case "transferencias":
-                System.out.println("Total de "+retDep+" hechos: "+CuentaBancaria.transHechas+"\nTotal en lempiras "
-                        + retDep + ": "+CuentaBancaria.montoTrans+" lps.");
+                list="Total de "+retDep+" hechos: "+CuentaBancaria.transHechas+"\nTotal en lempiras "
+                        + retDep + ": "+CuentaBancaria.montoTrans+" lps.";
         }
+        return list;
+    }
+    
+    public String activitis(){
+        String list = totalRetDep("retiros") + "\n";
+        list += totalRetDep("depositos") + "\n";
+        list += totalRetDep("transferencias");
+        return list;
     }
     
     /**
      * Muestra un menu para ver los reportes del banco
      */
     public void records(){
-        boolean bul = true;
-        do{ switch(recordsMenu()){
-            case 1: listAccounts();
-            break;
-            case 2: showAccounts();
-            break;
-            case 3:totalRetDep("retiros");
-            totalRetDep("depositos");
-            totalRetDep("transferencias");
-            break;
-            case 4: activo.Profile();
-            break;
-            case 5: //Regresar al menu principal
-                bul = false;
-        }
-        }while(bul);
+        
+//        boolean bul = true;
+//        do{ 
+//            switch(recordsMenu()){
+//            case 1: listAccounts();
+//            break;
+//            case 2: showAccounts();
+//            break;
+//            case 3:
+//            totalRetDep("retiros");
+//            totalRetDep("depositos");
+//            totalRetDep("transferencias");
+//            break;
+//            case 4: activo.Profile();
+//            break;
+//            case 5: //Regresar al menu principal
+//                bul = false;
+//        }
+//        }while(bul);
     }
     
     /**
