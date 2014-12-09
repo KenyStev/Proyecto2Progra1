@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class Banco {
     private Scanner scan = new Scanner(System.in);
     private CuentaBancaria cuentas[];
-    private Usuario users[], activo;    
+    private Usuario users[], activo;
     private int counterOfUsers=0;
     
     public Banco() {
@@ -86,7 +86,7 @@ public class Banco {
                     break;
                 }
             }
-
+            
         }else{
             for (int i = 0; i<cuentas.length; i++) {
                 if(cuentas[i] != null && cuentas[i].validarCuenta(numero)){
@@ -131,37 +131,25 @@ public class Banco {
      * Si el usuario actual es de tipo administrador y la cantidad de usuarios es menor de 50
      * pide ingresar el email, nombre, password y tipo para crear un nuevo usuario.
      */
-    public void createUser(){
-        String email, nombre, pass, tipo;
-        boolean ciclo;
-        if(activo.validateTipo(Usuario.ADMINISTRADOR) && counterOfUsers < 50){
-            do{ System.out.print("Ingrese su email: ");
-            email = scan.next();
-            ciclo = false;
+    public boolean createUser(Usuario user){
+        
+        if(counterOfUsers < 50){
             for (int x=0; x<counterOfUsers; x++) {
-                if(users[x].getEmail().equals(email)){
-                    ciclo = true;
-                    System.out.println("\033[31mEse email ya existe");
+                if(users[x].getEmail().equals(user.getEmail())){
+                    return false;
                 }
             }
-            }while(ciclo);
-            System.out.print("Ingrese su nombre completo: ");
-            nombre = scan.next();
-            System.out.print("Ingrese el password: ");
-            pass = scan.next();
-            tipo = Usuario.selectUserType();
-            users[counterOfUsers++] = new Usuario(email, pass, nombre, tipo);
+            users[counterOfUsers++] = new Usuario(user);
+            return true;
         }
-        else{
-            System.out.println("\033[31mNo se permite ingresar un nuevo usuario");
-        }
+        return false;
     }
     
     private void search(boolean estado){
         System.out.println("Numero\tNombre\t\tSaldo\tTipo   \tFecha de Creacion");
         for (CuentaBancaria cuenta : cuentas) {
             if (cuenta != null && cuenta.isActiva() == estado) {
-                System.out.println(cuenta.toString()); 
+                System.out.println(cuenta.toString());
             }
         }
     }
@@ -169,7 +157,7 @@ public class Banco {
     /**
      * Mustra los datos de codigo-nombre-saldo-tipo-fecha_creacion de cada cuenta bancaria
      * activas o desactivadas segun escoja el usuario
-     */        
+     */
     public void listAccounts(){
         System.out.print("Que tipo quiere listar: \n1-Activas \n2-Desactivadas\nEscoja su Opcion: ");
         int type = scan.nextInt();
@@ -186,7 +174,7 @@ public class Banco {
         int cant=0;
         for(CuentaBancaria temp: cuentas){
             if(temp!=null && temp.validarTypeAccount(type) && temp.isActiva()){
-            cant++;
+                cant++;
             }
         }
         return cant;
@@ -204,22 +192,22 @@ public class Banco {
     
     /**
      * Calcula la cantidad total de depositos o retiros hechos y lo imprime en pantalla
-     * @param retDep 
+     * @param retDep
      */
     public void totalRetDep(String retDep){
-                switch(retDep){
-                    case "retiros": 
-                        System.out.println("Total de "+retDep+" hechos: "+CuentaBancaria.retirosHechos+"\nTotal en lempiras "
-                                + retDep + ": "+CuentaBancaria.montoRetiros+" lps.");
-                        break;
-                    case "depositos": 
-                        System.out.println("Total de "+retDep+" hechos: "+CuentaBancaria.depositosHechos+"\nTotal en lempiras "
-                                + retDep + ": "+CuentaBancaria.montoDepositos+" lps.");
-                        break;
-                    case "transferencias": 
-                        System.out.println("Total de "+retDep+" hechos: "+CuentaBancaria.transHechas+"\nTotal en lempiras "
-                                + retDep + ": "+CuentaBancaria.montoTrans+" lps.");
-                }
+        switch(retDep){
+            case "retiros":
+                System.out.println("Total de "+retDep+" hechos: "+CuentaBancaria.retirosHechos+"\nTotal en lempiras "
+                        + retDep + ": "+CuentaBancaria.montoRetiros+" lps.");
+                break;
+            case "depositos":
+                System.out.println("Total de "+retDep+" hechos: "+CuentaBancaria.depositosHechos+"\nTotal en lempiras "
+                        + retDep + ": "+CuentaBancaria.montoDepositos+" lps.");
+                break;
+            case "transferencias":
+                System.out.println("Total de "+retDep+" hechos: "+CuentaBancaria.transHechas+"\nTotal en lempiras "
+                        + retDep + ": "+CuentaBancaria.montoTrans+" lps.");
+        }
     }
     
     /**
@@ -229,15 +217,15 @@ public class Banco {
         boolean bul = true;
         do{ switch(recordsMenu()){
             case 1: listAccounts();
-                break;
+            break;
             case 2: showAccounts();
-                break;
+            break;
             case 3:totalRetDep("retiros");
-                   totalRetDep("depositos");
-                   totalRetDep("transferencias");
-                break;
+            totalRetDep("depositos");
+            totalRetDep("transferencias");
+            break;
             case 4: activo.Profile();
-                break;
+            break;
             case 5: //Regresar al menu principal
                 bul = false;
         }
@@ -252,11 +240,11 @@ public class Banco {
      * @param numero numero de la cuenta
      * @return true iff was added
      */
-    private boolean add(String nombre, String tipo, int numero){
+    private boolean add(CuentaBancaria account){
         boolean state = false;
         for (int i = 0; i < cuentas.length; i++) {
             if(cuentas[i]==null){
-                cuentas[i] = new CuentaBancaria(nombre, tipo, numero);
+                cuentas[i] = new CuentaBancaria(account);
                 state = true;
                 break;
             }
@@ -267,40 +255,18 @@ public class Banco {
     /**
      * Hace todo el proceso para agregar una nueva cuenta bancaria
      */
-     public void addAccount(){
-        boolean agregada = false;
+    public boolean addAccount(CuentaBancaria account){
         if(!activo.validateTipo(Usuario.LIMITADO)){
-            System.out.print("Ingrese el Nombre del Cliente: ");
-            String nombre = scan.next();
-            int num;
-            do{
-                do{
-                System.out.print("Ingrese numero de Cuenta: ");
-                num = scan.nextInt();
-                if(num>=-1 && num!=0){
-                    break;
+            if(account.getNum()<1){
+                return false;
+            }
+            if(!validarCuenta(account.getNum())){
+                if(add(account)){
+                    return true;
                 }
-                else{
-                    System.out.println("Numero de cuenta invalido!");
-                }
-                }while(true);
-                if(num==-1){
-                    break;
-                }
-                if(!validarCuenta(num)){
-                    String tipo = CuentaBancaria.selectAccountType();
-                    agregada = add(nombre, tipo, num); //intenta agregar la cuenta y devuelve true si fue agregada
-                    if(!agregada){ //Si no fue agregar es porque esta lleno el arreglo
-                        System.out.println("\033[31mLimite de cuentas Lleno!");
-                        break;
-                    }
-                }else{
-                    System.out.println("\033[31mYa existe una cuenta con ese numero!");
-                }
-            }while(!agregada);
-        }else{
-            System.out.println("\033[31mNo Tiene Permiso para Agregar cuenta Ingeniero!");
+            }
         }
+        return false;
     }
     
     /**
@@ -332,14 +298,14 @@ public class Banco {
             int index = searchIndex(num, state);
             if(index>=0){
                 do{
-                System.out.print("Ingrese el monto a depositar: ");
-                monto = scan.nextDouble();
-                if(monto >= 1){
-                   break;
-                }
-                else{
-                    System.out.println("El monto debe ser un numero positivo!");
-                }
+                    System.out.print("Ingrese el monto a depositar: ");
+                    monto = scan.nextDouble();
+                    if(monto >= 1){
+                        break;
+                    }
+                    else{
+                        System.out.println("El monto debe ser un numero positivo!");
+                    }
                 }while(true);
                 state = deposit(index, monto);
             }else{
@@ -367,7 +333,7 @@ public class Banco {
     }
     
     /**
-     * Hace el proceso para remover dinero de una cuenta vancaria 
+     * Hace el proceso para remover dinero de una cuenta vancaria
      * validando todo lo que sea necesario.
      */
     public void removeBalance(){

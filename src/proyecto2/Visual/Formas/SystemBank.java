@@ -5,8 +5,10 @@
  */
 package proyecto2.Visual.Formas;
 
+import javax.swing.JOptionPane;
 import proyecto2.Visual.Logica.Banco;
 import proyecto2.Visual.Logica.SystemBanc;
+import proyecto2.Visual.Logica.Usuario;
 
 /**
  *
@@ -47,6 +49,8 @@ public class SystemBank extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu del Banco");
 
+        lblLogout.setFont(new java.awt.Font("DejaVu Sans Condensed", 3, 12)); // NOI18N
+        lblLogout.setForeground(new java.awt.Color(54, 46, 254));
         lblLogout.setText("Cerrar Sesion");
         lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -54,6 +58,8 @@ public class SystemBank extends javax.swing.JFrame {
             }
         });
 
+        lblUser.setFont(new java.awt.Font("DejaVu Sans Condensed", 1, 12)); // NOI18N
+        lblUser.setForeground(new java.awt.Color(54, 46, 254));
         lblUser.setText("jLabel1");
 
         btnAddAccount.setText("Agregar Cuenta");
@@ -76,6 +82,11 @@ public class SystemBank extends javax.swing.JFrame {
         btnCancelAccount.setText("Cancelar Cuenta");
 
         btnCreateUser.setText("Crear Usuarios");
+        btnCreateUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateUserActionPerformed(evt);
+            }
+        });
 
         btnRecords.setText("Reportes");
 
@@ -146,13 +157,13 @@ public class SystemBank extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
-        SystemBanc.bank.logout();
+        SystemBanc.callsMenuBank(10, null, null, null);
         new Login().setVisible(true);
         dispose();
     }//GEN-LAST:event_lblLogoutMouseClicked
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        SystemBanc.callsMenuBank(11);
+        SystemBanc.callsMenuBank(11, null, null, null);
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAddAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAccountActionPerformed
@@ -161,6 +172,16 @@ public class SystemBank extends javax.swing.JFrame {
         nueva.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnAddAccountActionPerformed
+
+    private void btnCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateUserActionPerformed
+        if(SystemBanc.bank.getActivo().validateTipo(Usuario.ADMINISTRADOR)){
+            new CreateUser().setVisible(true);
+            dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "No tiene Permisos para Crear Usuarios Ingeniero! ", "Error Crear Usuario", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnCreateUserActionPerformed
+
 
     /**
      * @param args the command line arguments
