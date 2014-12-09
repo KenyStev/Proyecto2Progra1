@@ -173,10 +173,13 @@ public class SystemBank extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAddAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAccountActionPerformed
-        // TODO add your handling code here:
-        AgregarCuenta nueva = new AgregarCuenta();
-        nueva.setVisible(true);
-        dispose();
+        if(!SystemBanc.bank.getActivo().validateTipo(Usuario.LIMITADO)){
+            AgregarCuenta nueva = new AgregarCuenta();
+            nueva.setVisible(true);
+            dispose();   
+        }else{
+            JOptionPane.showMessageDialog(this, "No Tiene Permiso para agregar cuenta Ingeniero!", "No Tiene Permisos", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnAddAccountActionPerformed
 
     private void btnCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateUserActionPerformed
