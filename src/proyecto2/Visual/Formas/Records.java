@@ -44,6 +44,11 @@ public class Records extends javax.swing.JFrame {
         setTitle("Reportes");
 
         btnPerfil.setText("Perfil");
+        btnPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPerfilActionPerformed(evt);
+            }
+        });
 
         rbGroup.add(rbListAccounts);
         rbListAccounts.setText("Listar Cuentas");
@@ -169,6 +174,11 @@ public class Records extends javax.swing.JFrame {
     private void rbActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbActividadesActionPerformed
         txtPane.setText(SystemBanc.bank.activitis());
     }//GEN-LAST:event_rbActividadesActionPerformed
+
+    private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
+        new Profile().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnPerfilActionPerformed
     
     /**
      * @param args the command line arguments

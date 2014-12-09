@@ -64,6 +64,10 @@ public class Usuario {
     public String getType(){
         return tipo;
     }
+    
+    public String getFecha(){
+        return fecha.toString();
+    }
     /**
      * Indica si el usuario es de el tipo del parametro
      * @param tipo
