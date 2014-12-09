@@ -386,12 +386,14 @@ public class Banco {
     /**
      * Registra los intereses para todas las cuentas activas que tenga el banco
      */
-    public void recordInterest(){
+    public String recordInterest(){
+        String list="";
         for (int i = 0; i < cuentas.length; i++) {
             if(cuentas[i]!=null){
-                cuentas[i].registrarInteres();
+                list+=cuentas[i].registrarInteres();
             }
         }
+        return list;
     }
     
     /**

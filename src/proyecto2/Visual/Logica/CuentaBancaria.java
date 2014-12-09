@@ -151,13 +151,13 @@ public class CuentaBancaria {
      * Registra los intereses mandando false en el segundo parametro de la funcion porque
      * no lo toma como deposito
      */
-    public void registrarInteres(){
+    public String registrarInteres(){
         if(activa){
             double saldoViejo = saldo;
             addSaldo(saldo*tasaInteres, false);
-            System.out.printf("\tIntereses en cuenta: %d; saldo: %.2f - tasa: %.2f - Intereses: %.2f - Total: %.2f\n",
-                    numero, saldoViejo, tasaInteres, (saldoViejo*tasaInteres), saldo);
+            return "Intereses en cuenta: "+ numero +"; saldo: "+saldoViejo+" - tasa: "+tasaInteres+" - Intereses: "+(saldoViejo*tasaInteres)+" - Total: "+saldo+"\n";
         }
+        return "";
     }
     
     /*Funciones Set*/

@@ -77,6 +77,11 @@ public class SystemBank extends javax.swing.JFrame {
         btnTransferBalance.setText("Transferencia a Terceros");
 
         btnRecodInterest.setText("Registrar Intereses");
+        btnRecodInterest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecodInterestActionPerformed(evt);
+            }
+        });
 
         btnLookAccount.setText("Desactivar cuentas");
 
@@ -195,6 +200,10 @@ public class SystemBank extends javax.swing.JFrame {
         new Records().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnRecordsActionPerformed
+
+    private void btnRecodInterestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecodInterestActionPerformed
+        new RecordInterest().setVisible(true);
+    }//GEN-LAST:event_btnRecodInterestActionPerformed
 
 
     /**
