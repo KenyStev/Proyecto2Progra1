@@ -60,6 +60,7 @@ public class SystemBank extends javax.swing.JFrame {
 
         lblUser.setFont(new java.awt.Font("DejaVu Sans Condensed", 1, 12)); // NOI18N
         lblUser.setForeground(new java.awt.Color(54, 46, 254));
+        lblUser.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblUser.setText("jLabel1");
 
         btnAddAccount.setText("Agregar Cuenta");
@@ -107,9 +108,9 @@ public class SystemBank extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(390, 390, 390)
+                .addGap(47, 47, 47)
                 .addComponent(lblUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblLogout))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()

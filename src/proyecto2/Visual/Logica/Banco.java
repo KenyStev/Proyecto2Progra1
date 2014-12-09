@@ -149,7 +149,7 @@ public class Banco {
         String list = "Numero\tNombre\t\tSaldo\tTipo   \tFecha de Creacion\n";
         for (CuentaBancaria cuenta : cuentas) {
             if (cuenta != null && cuenta.isActiva() == estado) {
-                list += cuenta.toString();
+                list += cuenta.toString() + "\n";
             }
         }
         return list;
