@@ -40,6 +40,7 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login System Bankeros");
+        setBounds(new java.awt.Rectangle(500, 250, 0, 0));
 
         jLabel1.setText("User:");
 
