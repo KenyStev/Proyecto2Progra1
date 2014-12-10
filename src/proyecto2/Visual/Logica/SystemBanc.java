@@ -39,16 +39,16 @@ public class SystemBanc {
                 case 1: //Agregar una cuenta.
                     return bank.addAccount(account);
                 case 2: //Depositar en cuenta.
-                    bank.depositBalance();
+                    //bank.depositBalance();
                     break;
                 case 3: //Retirar de Cuenta.
-                    bank.removeBalance();
+                    //bank.removeBalance();
                     break;
                 case 4: //Registrar Intereses.
                     bank.recordInterest();
                     break;
                 case 5: //Transferencia a Terceros.
-                    bank.trasferBalance();
+                    //bank.trasferBalance();
                     break;
                 case 6: //Desactivar cuentas.
                     bank.lookAccount();

@@ -128,16 +128,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Depositar en cuenta"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDepositBalanceActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnRemoveBalance">
       <Properties>
         <Property name="text" type="java.lang.String" value="Retirar de Cuenta"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemoveBalanceActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnTransferBalance">
       <Properties>
         <Property name="text" type="java.lang.String" value="Transferencia a Terceros"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTransferBalanceActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnRecodInterest">
       <Properties>
