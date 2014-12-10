@@ -6,8 +6,6 @@
 package proyecto2.Visual.Formas;
 
 import javax.swing.JOptionPane;
-import org.omg.CORBA.SystemException;
-import proyecto2.Visual.Logica.Banco;
 import proyecto2.Visual.Logica.SystemBanc;
 import proyecto2.Visual.Logica.Usuario;
 
@@ -22,7 +20,7 @@ public class SystemBank extends javax.swing.JFrame {
      */
     public SystemBank() {
         initComponents();
-        lblUser.setText(SystemBanc.bank.getActivo().getNombre()+" /");
+        lblUser.setText(SystemBanc.getUser().getNombre()+" /");
     }
     
     /**
@@ -189,7 +187,7 @@ public class SystemBank extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
-        SystemBanc.bank.logout();
+        SystemBanc.logout();
         new Login().setVisible(true);
         dispose();
     }//GEN-LAST:event_lblLogoutMouseClicked
@@ -199,7 +197,7 @@ public class SystemBank extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAddAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAccountActionPerformed
-        if(!SystemBanc.bank.getActivo().validateTipo(Usuario.LIMITADO)){
+        if(!SystemBanc.validateUSer(Usuario.LIMITADO)){
             AgregarCuenta nueva = new AgregarCuenta();
             nueva.setVisible(true);
             dispose();

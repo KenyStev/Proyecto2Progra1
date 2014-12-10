@@ -14,24 +14,16 @@ public class SystemBanc {
 
     public static Banco bank = new Banco();
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        while(true){
-            System.out.println("\033[32m   * *                * *");
-            System.out.println("\033[33m  ******             ******");
-            System.out.println("\033[33m *** \033[32m*              \033[33m*** \033[32m*");
-            System.out.println("\033[33m  **** \033[32mYSTEM BANKERO \033[33m****");
-            System.out.println("\033[32m  * \033[33m***              \033[32m* \033[33m***");
-            System.out.println("\033[33m******             ******");
-            System.out.println("\033[32m  * *                * *");
-//            Login();
-        }
-    }
-    
     public static boolean Login(String user, String pass){
         return bank.login(user, pass);
+    }
+    
+    public static void logout(){
+        bank.logout();
+    }
+    
+    public static Usuario getUser(){
+        return bank.getActivo();
     }
     
     public static CuentaBancaria searchAccount(int code){
@@ -49,7 +41,7 @@ public class SystemBanc {
         return bank.createUser(user);
     }
     
-    public boolean validateUSer(String tipo){
+    public static boolean validateUSer(String tipo){
         return bank.getActivo().validateTipo(tipo);
     }
     
