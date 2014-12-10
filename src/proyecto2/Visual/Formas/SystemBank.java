@@ -71,10 +71,25 @@ public class SystemBank extends javax.swing.JFrame {
         });
 
         btnDepositBalance.setText("Depositar en cuenta");
+        btnDepositBalance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDepositBalanceActionPerformed(evt);
+            }
+        });
 
         btnRemoveBalance.setText("Retirar de Cuenta");
+        btnRemoveBalance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveBalanceActionPerformed(evt);
+            }
+        });
 
         btnTransferBalance.setText("Transferencia a Terceros");
+        btnTransferBalance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTransferBalanceActionPerformed(evt);
+            }
+        });
 
         btnRecodInterest.setText("Registrar Intereses");
         btnRecodInterest.addActionListener(new java.awt.event.ActionListener() {
@@ -206,9 +221,28 @@ public class SystemBank extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnRecordsActionPerformed
 
+    private void btnDepositBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositBalanceActionPerformed
+        // TODO add your handling code here:
+        new DepositarCuenta().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnDepositBalanceActionPerformed
+
+    private void btnRemoveBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveBalanceActionPerformed
+        // TODO add your handling code here:
+        new RetirarCuenta().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnRemoveBalanceActionPerformed
+
+    private void btnTransferBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransferBalanceActionPerformed
+        // TODO add your handling code here:
+        new Transferencia().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnTransferBalanceActionPerformed
+
     private void btnRecodInterestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecodInterestActionPerformed
         new RecordInterest().setVisible(true);
     }//GEN-LAST:event_btnRecodInterestActionPerformed
+
 
     private void btnLookAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLookAccountActionPerformed
         if(!SystemBanc.bank.getActivo().validateTipo(Usuario.LIMITADO)){

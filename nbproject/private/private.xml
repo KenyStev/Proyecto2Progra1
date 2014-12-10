@@ -3,10 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/home/zerokull/NetBeansProjects/Proyecto2Progra1/src/proyecto2/Visual/Formas/Login.java</file>
             <file>file:/home/zerokull/NetBeansProjects/Proyecto2Progra1/src/proyecto2/Visual/Formas/SystemBank.java</file>
             <file>file:/home/zerokull/NetBeansProjects/Proyecto2Progra1/src/proyecto2/Visual/Logica/Banco.java</file>
             <file>file:/home/zerokull/NetBeansProjects/Proyecto2Progra1/src/proyecto2/Visual/Logica/SystemBanc.java</file>
+=======
+            <file>file:/C:/Users/Rolando/Documents/NetBeansProjects/Proyecto2/src/proyecto2/Visual/Logica/SystemBanc.java</file>
+            <file>file:/C:/Users/Rolando/Documents/NetBeansProjects/Proyecto2/src/proyecto2/Visual/Formas/DepositarCuenta.java</file>
+            <file>file:/C:/Users/Rolando/Documents/NetBeansProjects/Proyecto2/src/proyecto2/Visual/Logica/Banco.java</file>
+            <file>file:/C:/Users/Rolando/Documents/NetBeansProjects/Proyecto2/src/proyecto2/Visual/Formas/Transferencia.java</file>
+            <file>file:/C:/Users/Rolando/Documents/NetBeansProjects/Proyecto2/src/proyecto2/Visual/Formas/AgregarCuenta.java</file>
+            <file>file:/C:/Users/Rolando/Documents/NetBeansProjects/Proyecto2/src/proyecto2/Visual/Formas/RetirarCuenta.java</file>
+            <file>file:/C:/Users/Rolando/Documents/NetBeansProjects/Proyecto2/src/proyecto2/Visual/Logica/CuentaBancaria.java</file>
+>>>>>>> 500b8fc05a85774d8cd45d62656d97ba5429de5b
         </group>
     </open-files>
 </project-private>

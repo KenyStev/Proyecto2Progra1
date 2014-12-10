@@ -34,21 +34,32 @@ public class SystemBanc {
         return bank.login(user, pass);
     }
     
+    public static CuentaBancaria searchAccount(int code){
+        return bank.searchAccount(code);
+    }
+    
+    public static boolean lookAccount(int code){
+        if(bank.lookAccount(code)){
+            return true;
+        }
+        return false;
+    }
+    
     public static boolean callsMenuBank(int opt, Usuario user, CuentaBancaria account, CuentaBancaria account2, int num){
             switch(opt){
                 case 1: //Agregar una cuenta.
                     return bank.addAccount(account);
                 case 2: //Depositar en cuenta.
-                    bank.depositBalance();
+                    //bank.depositBalance();
                     break;
                 case 3: //Retirar de Cuenta.
-                    bank.removeBalance();
+                    //bank.removeBalance();
                     break;
                 case 4: //Registrar Intereses.
                     bank.recordInterest();
                     break;
                 case 5: //Transferencia a Terceros.
-                    bank.trasferBalance();
+                    //bank.trasferBalance();
                     break;
                 case 6: //Desactivar cuentas.
                     return bank.lookAccount(num);
@@ -68,16 +79,6 @@ public class SystemBanc {
                     break;
             }
             return false;
-    }
-    
-    public static String title(){
-        return ("       * *                     * *\n"+
-        "  ******                   ******\n"+
-        " *** *                     *** *\n"+
-        "  **** YSTEM BANKERO ****\n"+
-        "  * ***                    * ***\n"+
-        "******                     ******\n"+
-        "  * *                      * *");
     }
     
 }

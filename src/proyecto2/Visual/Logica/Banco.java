@@ -114,6 +114,15 @@ public class Banco {
         return existe;
     }
     
+    public CuentaBancaria searchAccount(int numero){
+        for (CuentaBancaria cuenta : cuentas) {
+            if(cuenta != null && cuenta.validarCuenta(numero)){
+                return cuenta;
+            }
+        }
+        return null;
+    }
+    
     /**
      * Reemplaza el usuario activo en el espacio de donde salio
      * en caso de que haya sido modificado el perfil
@@ -228,7 +237,7 @@ public class Banco {
     public void records(){
         
 //        boolean bul = true;
-//        do{ 
+//        do{
 //            switch(recordsMenu()){
 //            case 1: listAccounts();
 //            break;
@@ -293,40 +302,22 @@ public class Banco {
      */
     private boolean deposit(int index, double monto){
         cuentas[index].addSaldo(monto, true);
-        System.out.printf("Depositado: %.2f en cuenta: %d. Saldo Actual: %.2f\n",
-                monto, cuentas[index].getNum(), cuentas[index].getSaldo());
         return true;
     }
     
     /**
      * Metodo que se encarga de hacer todo el proceso de deposito
      */
-    public void depositBalance(){
+    public boolean depositBalance(int num, double monto ){
         boolean state = false;
-        double monto;
-        do{
-            System.out.print("Ingrese el Numero de Cuenta: ");
-            int num = scan.nextInt();
-            if(num==-1){
-                break;
-            }
+        if(num>0 && monto>0){
             int index = searchIndex(num, state);
             if(index>=0){
-                do{
-                    System.out.print("Ingrese el monto a depositar: ");
-                    monto = scan.nextDouble();
-                    if(monto >= 1){
-                        break;
-                    }
-                    else{
-                        System.out.println("El monto debe ser un numero positivo!");
-                    }
-                }while(true);
-                state = deposit(index, monto);
-            }else{
-                System.out.println("\033[31mLa Cuenta no Existe!");
+                return deposit(index, monto);
             }
-        }while(!state);
+        }
+        return false;
+        
     }
     
     /**
@@ -351,36 +342,18 @@ public class Banco {
      * Hace el proceso para remover dinero de una cuenta vancaria
      * validando todo lo que sea necesario.
      */
-    public void removeBalance(){
+    public boolean removeBalance(int num, double monto){
         boolean state=false;
-        double monto;
         if(!activo.validateTipo(Usuario.LIMITADO)){
-            do{
-                System.out.print("Ingrese el Numero de la Cuenta: ");
-                int num = scan.nextInt();
-                if(num==-1){
-                    break;
-                }
+            if(num>0 && monto>0){
                 int index = searchIndex(num, !state);
                 if(index>=0){
-                    do{
-                        System.out.print("Ingrese el monto a Retirar: ");
-                        monto = scan.nextDouble();
-                        if(monto >=1 ){
-                            break;
-                        }
-                        else{
-                            System.out.println("El monto debe ser un numero positivo");
-                        }
-                    }while(true);
-                    state = remove(index, monto);
-                }else{
-                    System.out.println("\033[31mNumero de cuenta no valido!");
+                    return remove(index, monto);
                 }
-            }while(!state);
-        }else{
-            System.out.println("\033[31mNo tiene permisos para retirar dinero Ingeniero!");
+            }
+            
         }
+        return false;
     }
     
     /**
@@ -401,52 +374,19 @@ public class Banco {
      * como que usuario esta haciendo la transferencia y que halla suficiente dinero
      * para ser retirado
      */
-    public void trasferBalance(){
+    public boolean trasferBalance(int origen, int destino, double monto){
         boolean state = false;
-        double monto;
         if(!activo.validateTipo(Usuario.LIMITADO)){
-            do{
-                System.out.print("Numero de Cuenta Origen: ");
-                int origen = scan.nextInt();
-                if(origen==-1){break;}
-                System.out.print("Numero de cuenta Destino: ");
-                int destino = scan.nextInt();
-                if(destino==-1){break;}
-                
-                if(origen==destino){
-                    System.out.println("\033[31mLos numeros de cuenta deben ser distintos!");
-                    continue;
-                }
-                
+            if(origen>0 && destino>0 && origen!=destino){
                 int indexO = searchIndex(origen, !state);
                 int indexD = searchIndex(destino, state);
                 
                 if(indexO>=0 && indexD>=0){
-                    do{
-                        System.out.print("Ingrese el monto a Transferir: ");
-                        monto = scan.nextDouble();
-                        if(monto >= 1){
-                            break;
-                        }
-                        else{
-                            System.out.println("El monto debe ser positivo!");
-                        }
-                    }while(true);
-                    state = cuentas[indexO].transferencia(monto, cuentas[indexD]);
-                    if(state){
-                        System.out.printf("Transferidos: %.2f de %d a %d",
-                                monto, origen, destino);
-                    }else{
-                        System.out.printf("\033[31mNo hay suficiente dinero para retirar de la cuenta origen! %d\n",
-                                origen);
-                    }
-                }else{
-                    System.out.println("\033[31mNumeros de Cuenta Incorrectos!");
+                    return cuentas[indexO].transferencia(monto, cuentas[indexD]);
                 }
-            }while(!state);
-        }else{
-            System.out.println("\033[31mNo tiene permisos para hacer trasferencias Ingeniero!");
+            }
         }
+        return false;
     }
     
     public boolean lookAccount(int num){
