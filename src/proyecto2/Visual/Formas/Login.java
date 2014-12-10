@@ -6,7 +6,7 @@
 package proyecto2.Visual.Formas;
 
 import javax.swing.JOptionPane;
-import proyecto2.Visual.Logica.SystemBanc;
+import static proyecto2.Visual.Logica.SystemBanc.*;
 
 /**
  *
@@ -103,7 +103,7 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String user = txtUser.getText(), pass = txtPass.getText();
-        if(SystemBanc.Login(user, pass)){
+        if(Login(user, pass)){
             new SystemBank().setVisible(true);
             dispose();
         }else{

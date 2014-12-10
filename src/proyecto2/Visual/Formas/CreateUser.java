@@ -6,7 +6,7 @@
 package proyecto2.Visual.Formas;
 
 import javax.swing.JOptionPane;
-import proyecto2.Visual.Logica.SystemBanc;
+import static proyecto2.Visual.Logica.SystemBanc.*;
 import proyecto2.Visual.Logica.Usuario;
 
 /**
@@ -141,7 +141,7 @@ public class CreateUser extends javax.swing.JFrame {
                 type = cbTipo.getSelectedItem().toString();
         Usuario user = new Usuario(email, pass, name, type);
         
-        if(SystemBanc.createUser(user)){
+        if(createUser(user)){
             JOptionPane.showMessageDialog(this, "Usuario Creado Exitosamente! ", "Usuario Creado", JOptionPane.INFORMATION_MESSAGE);
             new SystemBank().setVisible(true);
             dispose();

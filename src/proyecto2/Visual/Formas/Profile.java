@@ -6,7 +6,7 @@
 package proyecto2.Visual.Formas;
 
 import javax.swing.JOptionPane;
-import proyecto2.Visual.Logica.SystemBanc;
+import static proyecto2.Visual.Logica.SystemBanc.*;
 
 /**
  *
@@ -19,10 +19,10 @@ public class Profile extends javax.swing.JFrame {
      */
     public Profile() {
         initComponents();
-        lblUser.setText("Fecha de Creacion: "+SystemBanc.bank.getActivo().getFecha());
-        txtName.setText(SystemBanc.bank.getActivo().getNombre());
-        txtEmail.setText(SystemBanc.bank.getActivo().getEmail());
-        txtPass.setText(SystemBanc.bank.getActivo().getPassword());
+        lblUser.setText("Fecha de Creacion: "+getUser().getFecha());
+        txtName.setText(getUser().getNombre());
+        txtEmail.setText(getUser().getEmail());
+        txtPass.setText(getUser().getPassword());
     }
 
     /**
@@ -131,7 +131,7 @@ public class Profile extends javax.swing.JFrame {
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         if(btnEdit.getText().equals("Editar")){
             String pass = JOptionPane.showInputDialog(this, "Ingrese su Password", "Confirmacion");
-            if(pass!=null && SystemBanc.bank.getActivo().pass(pass)){
+            if(pass!=null && getUser().pass(pass)){
                 txtName.setEditable(true);
                 txtEmail.setEditable(true);
                 txtPass.setEditable(true);
@@ -145,9 +145,9 @@ public class Profile extends javax.swing.JFrame {
             txtPass.setEditable(false);
             btnEdit.setText("Editar");
             
-            SystemBanc.bank.getActivo().setName(txtName.getText());
-            SystemBanc.bank.getActivo().setEmail(txtEmail.getText());
-            SystemBanc.bank.getActivo().setPassword(txtPass.getText()); 
+            getUser().setName(txtName.getText());
+            getUser().setEmail(txtEmail.getText());
+            getUser().setPassword(txtPass.getText()); 
         }
     }//GEN-LAST:event_btnEditActionPerformed
 

@@ -7,7 +7,7 @@ package proyecto2.Visual.Formas;
 
 import javax.swing.JOptionPane;
 import proyecto2.Visual.Logica.CuentaBancaria;
-import proyecto2.Visual.Logica.SystemBanc;
+import static proyecto2.Visual.Logica.SystemBanc.*;
 
 /**
  *
@@ -77,11 +77,11 @@ public class LookAccount extends javax.swing.JFrame {
 
     private void btnLookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLookActionPerformed
         int num = Integer.parseInt(txtNumero.getText());
-        CuentaBancaria account = SystemBanc.searchAccount(num);
+        CuentaBancaria account = searchAccount(num);
         if(account!=null && account.isActiva()){
             int resp = JOptionPane.showConfirmDialog(this, "Desea desactivar la Cuenta: "+account.getNum(), "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if(resp==JOptionPane.OK_OPTION){
-                SystemBanc.lookAccount(account);
+                lookAccount(account);
                 JOptionPane.showMessageDialog(this, "Cuenta Desactivada", "Desactivacion", JOptionPane.INFORMATION_MESSAGE);
             }
         }else{
