@@ -6,7 +6,7 @@
 package proyecto2.Visual.Formas;
 
 import javax.swing.JOptionPane;
-import proyecto2.Visual.Logica.SystemBanc;
+import static proyecto2.Visual.Logica.SystemBanc.*;
 
 /**
  *
@@ -112,7 +112,7 @@ public class DepositarCuenta extends javax.swing.JFrame {
         // TODO add your handling code here:
         int codigo = Integer.parseInt(txtCodigo.getText());
         double monto = Double.parseDouble(txtMonto.getText());
-        if(SystemBanc.bank.depositBalance(codigo, monto)){
+        if(depositBalance(codigo, monto)){
             JOptionPane.showMessageDialog(this, "Depositado Exitosamente!", "Depositado", JOptionPane.INFORMATION_MESSAGE);
             new SystemBank().setVisible(true);
             dispose();

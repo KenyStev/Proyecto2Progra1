@@ -57,6 +57,11 @@ public class Transferencia extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Sylfaen", 3, 18)); // NOI18N
         jLabel1.setText("<--BACK");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel2.setText("Cuenta de Origen:");
@@ -152,6 +157,12 @@ public class Transferencia extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        new SystemBank().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel1MouseClicked
     
     /**
      * @param args the command line arguments

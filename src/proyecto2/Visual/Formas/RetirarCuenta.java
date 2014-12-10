@@ -6,8 +6,7 @@
 package proyecto2.Visual.Formas;
 
 import javax.swing.JOptionPane;
-import proyecto2.Visual.Logica.SystemBanc;
-import proyecto2.Visual.Logica.Usuario;
+import static proyecto2.Visual.Logica.SystemBanc.*;
 
 /**
  *
@@ -123,12 +122,10 @@ public class RetirarCuenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
-        if(!SystemBanc.bank.getActivo().validateTipo(Usuario.LIMITADO)){
+        // TODO add your handling code here:       
             int codigo = Integer.parseInt(txtCodigo.getText());
             double monto = Double.parseDouble(txtMonto.getText());
-            if(SystemBanc.bank.removeBalance(codigo, monto)){
+            if(removeBalance(codigo, monto)){
                 JOptionPane.showMessageDialog(this, "Retirado Exitosamente!", "Retirado", JOptionPane.INFORMATION_MESSAGE);
                 new SystemBank().setVisible(true);
                 dispose();
@@ -137,13 +134,7 @@ public class RetirarCuenta extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Error al retirar en cuenta!\nRecuerde que:\n-El usuario actual "
                         + "no puede ser limitado.\n-El codigo y el monto deben ser positivos","No Depositado",
                         JOptionPane.ERROR_MESSAGE);
-            }
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "Los usuarios limitados no tienen acceso a esta tarea", "Error de Usuario",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-        
+            } 
     }//GEN-LAST:event_jButton1ActionPerformed
     
     /**

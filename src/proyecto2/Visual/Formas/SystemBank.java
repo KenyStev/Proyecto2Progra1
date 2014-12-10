@@ -6,7 +6,7 @@
 package proyecto2.Visual.Formas;
 
 import javax.swing.JOptionPane;
-import proyecto2.Visual.Logica.SystemBanc;
+import static proyecto2.Visual.Logica.SystemBanc.*;
 import proyecto2.Visual.Logica.Usuario;
 
 /**
@@ -20,7 +20,7 @@ public class SystemBank extends javax.swing.JFrame {
      */
     public SystemBank() {
         initComponents();
-        lblUser.setText(SystemBanc.getUser().getNombre()+" /");
+        lblUser.setText(getUser().getNombre()+" /");
     }
     
     /**
@@ -192,7 +192,7 @@ public class SystemBank extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
-        SystemBanc.logout();
+        logout();
         new Login().setVisible(true);
         dispose();
     }//GEN-LAST:event_lblLogoutMouseClicked
@@ -202,7 +202,7 @@ public class SystemBank extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAddAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAccountActionPerformed
-        if(!SystemBanc.validateUser(Usuario.LIMITADO)){
+        if(!validateUser(Usuario.LIMITADO)){
             AgregarCuenta nueva = new AgregarCuenta();
             nueva.setVisible(true);
             dispose();
@@ -212,7 +212,7 @@ public class SystemBank extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddAccountActionPerformed
 
     private void btnCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateUserActionPerformed
-        if(SystemBanc.bank.getActivo().validateTipo(Usuario.ADMINISTRADOR)){
+        if(validateUser(Usuario.ADMINISTRADOR)){
             new CreateUser().setVisible(true);
             dispose();
         }else{
@@ -233,23 +233,35 @@ public class SystemBank extends javax.swing.JFrame {
 
     private void btnRemoveBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveBalanceActionPerformed
         // TODO add your handling code here:
-        new RetirarCuenta().setVisible(true);
-        dispose();
+        if(!validateUser(Usuario.LIMITADO)){
+            new RetirarCuenta().setVisible(true);
+            dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "El usuario limitado no tiene acceso a esta funcion!",
+                    "Acceso Denegado", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnRemoveBalanceActionPerformed
 
     private void btnTransferBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransferBalanceActionPerformed
         // TODO add your handling code here:
-        new Transferencia().setVisible(true);
-        dispose();
+        if(!validateUser(Usuario.LIMITADO)){
+            new Transferencia().setVisible(true);
+            dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "El usuario limitado no tiene acceso a esta opción",
+                    "Acceso Denegado", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnTransferBalanceActionPerformed
 
     private void btnRecodInterestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecodInterestActionPerformed
         new RecordInterest().setVisible(true);
     }//GEN-LAST:event_btnRecodInterestActionPerformed
-
+    
 
     private void btnLookAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLookAccountActionPerformed
-        if(!SystemBanc.bank.getActivo().validateTipo(Usuario.LIMITADO)){
+        if(!validateUser(Usuario.LIMITADO)){
             new LookAccount().setVisible(true);
             dispose();
         }else{
@@ -259,13 +271,14 @@ public class SystemBank extends javax.swing.JFrame {
 
     private void btnCancelAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelAccountActionPerformed
         // TODO add your handling code here:
-        /*if(SystemBanc.validateUser(Usuario.ADMINISTRADOR)){
+        if(validateUser(Usuario.ADMINISTRADOR)){
             new CancelAccount().setVisible(true);
+            dispose();
         }
         else{
             JOptionPane.showMessageDialog(this, "Solo un usuario administrador tiene acceso a cancelar cuenta!",
                     "Acceso Denegado", JOptionPane.ERROR_MESSAGE);
-        }*/
+        }
     }//GEN-LAST:event_btnCancelAccountActionPerformed
     
     
