@@ -36,7 +36,7 @@ public class CancelAccount extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("CANCELAR UNA CUENTA");
         setBounds(new java.awt.Rectangle(500, 100, 0, 0));
 

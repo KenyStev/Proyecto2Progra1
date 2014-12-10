@@ -40,7 +40,7 @@ public class DepositarCuenta extends javax.swing.JFrame {
 
         jButton1.setText("jButton1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("DEPOSITAR EN UNA CUENTA");
         setBounds(new java.awt.Rectangle(500, 100, 0, 0));
 

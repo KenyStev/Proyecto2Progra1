@@ -49,7 +49,7 @@ public class CreateUser extends javax.swing.JFrame {
         btnCrear = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Crear un Nuevo Usuario");
         setBounds(new java.awt.Rectangle(500, 100, 0, 0));
 

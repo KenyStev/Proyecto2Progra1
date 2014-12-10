@@ -35,7 +35,7 @@ public class LookAccount extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnLook = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Desactivar Cuentas");
         setBounds(new java.awt.Rectangle(500, 250, 0, 0));
 

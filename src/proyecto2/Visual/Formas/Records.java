@@ -40,7 +40,7 @@ public class Records extends javax.swing.JFrame {
         txtPane = new javax.swing.JTextPane();
         btnBack = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Reportes");
         setBounds(new java.awt.Rectangle(500, 100, 0, 0));
 

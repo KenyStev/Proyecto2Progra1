@@ -51,6 +51,7 @@ public class AgregarCuenta extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("AGREGAR UNA CUENTA");
         setBounds(new java.awt.Rectangle(500, 100, 0, 0));
 

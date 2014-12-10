@@ -52,7 +52,7 @@ public class Transferencia extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("TRANSFERENCIA A TERCEROS");
         setBounds(new java.awt.Rectangle(500, 100, 0, 0));
 
