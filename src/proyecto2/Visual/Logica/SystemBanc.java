@@ -64,7 +64,7 @@ public class SystemBanc {
                 case 6: //Desactivar cuentas.
                     return bank.lookAccount(num);
                 case 7: //Cancelar Cuenta.
-                    bank.cancelAccount();
+                    //bank.cancelAccount();
                     break;
                 case 8: //Crear Usuarios
                     return bank.createUser(user);

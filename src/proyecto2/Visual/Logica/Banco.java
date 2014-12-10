@@ -390,32 +390,21 @@ public class Banco {
     }
     
     public boolean lookAccount(int num){
-            int index = searchIndex(num, true);
-            if(index>=0){
-                    cuentas[index].disable();
-                    return true;
-            }
+        int index = searchIndex(num, true);
+        if(index>=0){
+            cuentas[index].disable();
+            return true;
+        }
         return false;
     }
     
-    public void cancelAccount(){
-        if(activo.validateTipo(Usuario.ADMINISTRADOR)){
-            System.out.print("Ingrese el numero de cuenta: ");
-            int num = scan.nextInt();
-            int index = searchIndex(num, false);
-            if(index>=0){
-                System.out.printf("Realmente desea cancelar la cuenta %d? (Si/No): ", cuentas[index].getNum());
-                String resp = scan.next();
-                if(resp.equalsIgnoreCase("si")){
-                    System.out.println("Cancelada cuenta: "+cuentas[index].toString());
-                    cuentas[index] = null;
-                }
-            }else{
-                System.out.println("\033[31mLa cuenta no existe!");
-            }
-        }else{
-            System.out.println("\033[31mNo tiene permisos para cancelar cuentas Ingeniero!");
+    public boolean cancelAccount(int num){
+        int index = searchIndex(num, false);
+        if(index>=0){
+            cuentas[index] = null;
+            return true;
         }
+        return false;
     }
     
     public Usuario getActivo(){

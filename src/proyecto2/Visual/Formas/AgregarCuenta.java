@@ -145,6 +145,8 @@ public class AgregarCuenta extends javax.swing.JFrame {
         CuentaBancaria cuenta = new CuentaBancaria(nombre, tipo, numero);
         if(SystemBanc.callsMenuBank(1, null, cuenta, null,0)){
         JOptionPane.showMessageDialog(this, "Agregada Exitosamente!", "Agregada", JOptionPane.INFORMATION_MESSAGE);
+        new SystemBank().setVisible(true);
+        dispose();
         }
         else{
         JOptionPane.showMessageDialog(this, "Error al agregar cuenta!", "No Agregada", JOptionPane.ERROR_MESSAGE);

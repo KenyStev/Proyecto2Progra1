@@ -1,26 +1,27 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package proyecto2.Visual.Formas;
 
 import javax.swing.JOptionPane;
 import proyecto2.Visual.Logica.SystemBanc;
+import proyecto2.Visual.Logica.Usuario;
 
 /**
  *
  * @author Rolando
  */
 public class RetirarCuenta extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form RetirarCuenta
      */
     public RetirarCuenta() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,20 +124,28 @@ public class RetirarCuenta extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int codigo = Integer.parseInt(txtCodigo.getText());
-        double monto = Double.parseDouble(txtMonto.getText());
-        if(SystemBanc.bank.removeBalance(codigo, monto)){
-            JOptionPane.showMessageDialog(this, "Retirado Exitosamente!", "Retirado", JOptionPane.INFORMATION_MESSAGE);
-            new SystemBank().setVisible(true);
-            dispose();
+        
+        if(!SystemBanc.bank.getActivo().validateTipo(Usuario.LIMITADO)){
+            int codigo = Integer.parseInt(txtCodigo.getText());
+            double monto = Double.parseDouble(txtMonto.getText());
+            if(SystemBanc.bank.removeBalance(codigo, monto)){
+                JOptionPane.showMessageDialog(this, "Retirado Exitosamente!", "Retirado", JOptionPane.INFORMATION_MESSAGE);
+                new SystemBank().setVisible(true);
+                dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Error al retirar en cuenta!\nRecuerde que:\n-El usuario actual "
+                        + "no puede ser limitado.\n-El codigo y el monto deben ser positivos","No Depositado",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
         else{
-             JOptionPane.showMessageDialog(this, "Error al retirar en cuenta!\nRecuerde que:\n-El usuario actual "
-                     + "no puede ser limitado.\n-El codigo y el monto deben ser positivos","No Depositado",
-                     JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Los usuarios limitados no tienen acceso a esta tarea", "Error de Usuario",
+                    JOptionPane.ERROR_MESSAGE);
         }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
@@ -144,8 +153,8 @@ public class RetirarCuenta extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+        */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -163,7 +172,7 @@ public class RetirarCuenta extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(RetirarCuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
