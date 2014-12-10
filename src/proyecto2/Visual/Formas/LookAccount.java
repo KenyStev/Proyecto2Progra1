@@ -6,6 +6,7 @@
 package proyecto2.Visual.Formas;
 
 import javax.swing.JOptionPane;
+import proyecto2.Visual.Logica.CuentaBancaria;
 import proyecto2.Visual.Logica.SystemBanc;
 
 /**
@@ -36,6 +37,7 @@ public class LookAccount extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Desactivar Cuentas");
+        setBounds(new java.awt.Rectangle(500, 250, 0, 0));
 
         jLabel1.setText("Numero:");
 
@@ -75,11 +77,15 @@ public class LookAccount extends javax.swing.JFrame {
 
     private void btnLookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLookActionPerformed
         int num = Integer.parseInt(txtNumero.getText());
-        
-        if(SystemBanc.callsMenuBank(6, null, null, null, num)){
-            JOptionPane.showMessageDialog(this, "Cuenta Desactivada", "Desactivacion", JOptionPane.INFORMATION_MESSAGE);
+        CuentaBancaria account = SystemBanc.searchAccount(num);
+        if(account!=null && account.isActiva()){
+            int resp = JOptionPane.showConfirmDialog(this, "Desea desactivar la Cuenta: "+account.getNum(), "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(resp==JOptionPane.OK_OPTION){
+                SystemBanc.lookAccount(account);
+                JOptionPane.showMessageDialog(this, "Cuenta Desactivada", "Desactivacion", JOptionPane.INFORMATION_MESSAGE);
+            }
         }else{
-            JOptionPane.showMessageDialog(this, "La Cuenta ya estaba Desactivada", "Desactivacion", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La Cuenta ya estaba Desactivada o no Existe", "Desactivacion", JOptionPane.ERROR_MESSAGE);
         }
         new SystemBank().setVisible(true);
         dispose();

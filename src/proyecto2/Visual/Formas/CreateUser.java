@@ -141,7 +141,7 @@ public class CreateUser extends javax.swing.JFrame {
                 type = cbTipo.getSelectedItem().toString();
         Usuario user = new Usuario(email, pass, name, type);
         
-        if(SystemBanc.callsMenuBank(8, user, null, null,0)){
+        if(SystemBanc.createUser(user)){
             JOptionPane.showMessageDialog(this, "Usuario Creado Exitosamente! ", "Usuario Creado", JOptionPane.INFORMATION_MESSAGE);
             new SystemBank().setVisible(true);
             dispose();
