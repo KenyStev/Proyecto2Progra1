@@ -197,7 +197,7 @@ public class SystemBank extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAddAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAccountActionPerformed
-        if(!SystemBanc.validateUSer(Usuario.LIMITADO)){
+        if(!SystemBanc.validateUser(Usuario.LIMITADO)){
             AgregarCuenta nueva = new AgregarCuenta();
             nueva.setVisible(true);
             dispose();
