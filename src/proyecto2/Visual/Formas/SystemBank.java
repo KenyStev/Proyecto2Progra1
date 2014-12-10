@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package proyecto2.Visual.Formas;
 
 import javax.swing.JOptionPane;
@@ -15,7 +15,7 @@ import proyecto2.Visual.Logica.Usuario;
  * @author zerokull
  */
 public class SystemBank extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form SystemBank
      */
@@ -23,7 +23,7 @@ public class SystemBank extends javax.swing.JFrame {
         initComponents();
         lblUser.setText(SystemBanc.bank.getActivo().getNombre()+" /");
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,6 +60,7 @@ public class SystemBank extends javax.swing.JFrame {
 
         lblUser.setFont(new java.awt.Font("DejaVu Sans Condensed", 1, 12)); // NOI18N
         lblUser.setForeground(new java.awt.Color(54, 46, 254));
+        lblUser.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblUser.setText("jLabel1");
 
         btnAddAccount.setText("Agregar Cuenta");
@@ -91,8 +92,18 @@ public class SystemBank extends javax.swing.JFrame {
         });
 
         btnRecodInterest.setText("Registrar Intereses");
+        btnRecodInterest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecodInterestActionPerformed(evt);
+            }
+        });
 
         btnLookAccount.setText("Desactivar cuentas");
+        btnLookAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLookAccountActionPerformed(evt);
+            }
+        });
 
         btnCancelAccount.setText("Cancelar Cuenta");
 
@@ -122,9 +133,9 @@ public class SystemBank extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(390, 390, 390)
+                .addGap(47, 47, 47)
                 .addComponent(lblUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblLogout))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -183,14 +194,17 @@ public class SystemBank extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoutMouseClicked
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        SystemBanc.callsMenuBank(11, null, null, null);
+        SystemBanc.callsMenuBank(11, null, null, null,0);
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAddAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAccountActionPerformed
-        // TODO add your handling code here:
-        AgregarCuenta nueva = new AgregarCuenta();
-        nueva.setVisible(true);
-        dispose();
+        if(!SystemBanc.bank.getActivo().validateTipo(Usuario.LIMITADO)){
+            AgregarCuenta nueva = new AgregarCuenta();
+            nueva.setVisible(true);
+            dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "No Tiene Permiso para agregar cuenta Ingeniero!", "No Tiene Permisos", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnAddAccountActionPerformed
 
     private void btnCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateUserActionPerformed
@@ -225,7 +239,21 @@ public class SystemBank extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnTransferBalanceActionPerformed
 
+    private void btnRecodInterestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecodInterestActionPerformed
+        new RecordInterest().setVisible(true);
+    }//GEN-LAST:event_btnRecodInterestActionPerformed
 
+
+    private void btnLookAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLookAccountActionPerformed
+        if(!SystemBanc.bank.getActivo().validateTipo(Usuario.LIMITADO)){
+            new LookAccount().setVisible(true);
+            dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "No tiene Permisos para Crear Desactivar Cuentas Ingeniero! ", "Error Crear Usuario", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnLookAccountActionPerformed
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -233,8 +261,8 @@ public class SystemBank extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+        */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -252,7 +280,7 @@ public class SystemBank extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(SystemBank.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

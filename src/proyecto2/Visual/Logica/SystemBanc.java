@@ -34,7 +34,7 @@ public class SystemBanc {
         return bank.login(user, pass);
     }
     
-    public static boolean callsMenuBank(int opt, Usuario user, CuentaBancaria account, CuentaBancaria account2){
+    public static boolean callsMenuBank(int opt, Usuario user, CuentaBancaria account, CuentaBancaria account2, int num){
             switch(opt){
                 case 1: //Agregar una cuenta.
                     return bank.addAccount(account);
@@ -51,8 +51,7 @@ public class SystemBanc {
                     //bank.trasferBalance();
                     break;
                 case 6: //Desactivar cuentas.
-                    bank.lookAccount();
-                    break;
+                    return bank.lookAccount(num);
                 case 7: //Cancelar Cuenta.
                     bank.cancelAccount();
                     break;
