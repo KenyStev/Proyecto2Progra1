@@ -6,6 +6,7 @@
 package proyecto2.Visual.Formas;
 
 import javax.swing.JOptionPane;
+import org.omg.CORBA.SystemException;
 import proyecto2.Visual.Logica.Banco;
 import proyecto2.Visual.Logica.SystemBanc;
 import proyecto2.Visual.Logica.Usuario;
@@ -194,7 +195,7 @@ public class SystemBank extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoutMouseClicked
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        SystemBanc.callsMenuBank(11, null, null, null,0);
+        System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAddAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAccountActionPerformed

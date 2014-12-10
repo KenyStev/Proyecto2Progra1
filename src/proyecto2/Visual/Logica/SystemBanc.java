@@ -38,11 +38,19 @@ public class SystemBanc {
         return bank.searchAccount(code);
     }
     
-    public static boolean lookAccount(int code){
-        if(bank.lookAccount(code)){
+    public static boolean lookAccount(CuentaBancaria account){
+        if(bank.lookAccount(account.getNum())){
             return true;
         }
         return false;
+    }
+    
+    public static boolean createUser(Usuario user){
+        return bank.createUser(user);
+    }
+    
+    public boolean validateUSer(String tipo){
+        return bank.getActivo().validateTipo(tipo);
     }
     
     public static boolean callsMenuBank(int opt, Usuario user, CuentaBancaria account, CuentaBancaria account2, int num){
