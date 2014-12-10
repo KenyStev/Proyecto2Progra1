@@ -14,24 +14,16 @@ public class SystemBanc {
 
     public static Banco bank = new Banco();
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        while(true){
-            System.out.println("\033[32m   * *                * *");
-            System.out.println("\033[33m  ******             ******");
-            System.out.println("\033[33m *** \033[32m*              \033[33m*** \033[32m*");
-            System.out.println("\033[33m  **** \033[32mYSTEM BANKERO \033[33m****");
-            System.out.println("\033[32m  * \033[33m***              \033[32m* \033[33m***");
-            System.out.println("\033[33m******             ******");
-            System.out.println("\033[32m  * *                * *");
-//            Login();
-        }
-    }
-    
     public static boolean Login(String user, String pass){
         return bank.login(user, pass);
+    }
+    
+    public static void logout(){
+        bank.logout();
+    }
+    
+    public static Usuario getUser(){
+        return bank.getActivo();
     }
     
     public static CuentaBancaria searchAccount(int code){
@@ -49,14 +41,18 @@ public class SystemBanc {
         return bank.createUser(user);
     }
     
-    public boolean validateUSer(String tipo){
+    public static boolean validateUser(String tipo){
         return bank.getActivo().validateTipo(tipo);
+    }
+    
+    public static boolean addAccount(CuentaBancaria account){
+        return bank.addAccount(account);
     }
     
     public static boolean callsMenuBank(int opt, Usuario user, CuentaBancaria account, CuentaBancaria account2, int num){
             switch(opt){
                 case 1: //Agregar una cuenta.
-                    return bank.addAccount(account);
+//                    return bank.addAccount(account);
                 case 2: //Depositar en cuenta.
                     //bank.depositBalance();
                     break;
@@ -64,26 +60,26 @@ public class SystemBanc {
                     //bank.removeBalance();
                     break;
                 case 4: //Registrar Intereses.
-                    bank.recordInterest();
+//                    bank.recordInterest();
                     break;
                 case 5: //Transferencia a Terceros.
                     //bank.trasferBalance();
                     break;
                 case 6: //Desactivar cuentas.
-                    return bank.lookAccount(num);
+//                    return bank.lookAccount(num);
                 case 7: //Cancelar Cuenta.
                     //bank.cancelAccount();
                     break;
                 case 8: //Crear Usuarios
-                    return bank.createUser(user);
+//                    return bank.createUser(user);
                 case 9: //Reportes
-                    bank.records();
+//                    bank.records();
                     break;
                 case 10: //Cerrar Sesión
-                    bank.logout();
+//                    bank.logout();
                     break;
                 case 11: //Salir
-                    System.exit(0);
+//                    System.exit(0);
                     break;
             }
             return false;
