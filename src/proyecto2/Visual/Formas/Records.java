@@ -6,7 +6,7 @@
 package proyecto2.Visual.Formas;
 
 import javax.swing.JOptionPane;
-import proyecto2.Visual.Logica.SystemBanc;
+import static proyecto2.Visual.Logica.SystemBanc.*;
 
 /**
  *
@@ -155,7 +155,7 @@ public class Records extends javax.swing.JFrame {
         }
         
         if(resp>0 && resp<3){
-            txtPane.setText(SystemBanc.bank.listAccounts(resp));
+            txtPane.setText(bank.listAccounts(resp));
         }else{
             JOptionPane.showMessageDialog(this, "Opcion Invalida", "Opcion no Existe", JOptionPane.ERROR_MESSAGE);
         }
@@ -168,11 +168,11 @@ public class Records extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void rbEstadisticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEstadisticasActionPerformed
-        txtPane.setText(SystemBanc.bank.showAccounts());
+        txtPane.setText(bank.showAccounts());
     }//GEN-LAST:event_rbEstadisticasActionPerformed
 
     private void rbActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbActividadesActionPerformed
-        txtPane.setText(SystemBanc.bank.activitis());
+        txtPane.setText(bank.activitis());
     }//GEN-LAST:event_rbActividadesActionPerformed
 
     private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed

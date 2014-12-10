@@ -6,7 +6,7 @@
 package proyecto2.Visual.Formas;
 
 import javax.swing.JOptionPane;
-import proyecto2.Visual.Logica.SystemBanc;
+import static proyecto2.Visual.Logica.SystemBanc.*;
 
 /**
  *
@@ -114,7 +114,7 @@ public class RecordInterest extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void RecordInterest() {
-        String list = SystemBanc.bank.recordInterest();
+        String list = bank.recordInterest();
         txtPane.setText(list);
         JOptionPane.showMessageDialog(this, "Intereses Registrados!", "Intereses", JOptionPane.INFORMATION_MESSAGE);
     }
