@@ -143,7 +143,7 @@ public class AgregarCuenta extends javax.swing.JFrame {
         String nombre = txtNombre.getText(), tipo = cbTipo.getSelectedItem().toString();
         int numero = Integer.parseInt(txtCodigo.getText());
         CuentaBancaria cuenta = new CuentaBancaria(nombre, tipo, numero);
-        if(SystemBanc.callsMenuBank(1, null, cuenta, null)){
+        if(SystemBanc.callsMenuBank(1, null, cuenta, null,0)){
         JOptionPane.showMessageDialog(this, "Agregada Exitosamente!", "Agregada", JOptionPane.INFORMATION_MESSAGE);
         }
         else{

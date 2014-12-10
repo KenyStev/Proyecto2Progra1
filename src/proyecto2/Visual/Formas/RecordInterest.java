@@ -36,6 +36,9 @@ public class RecordInterest extends javax.swing.JFrame {
         txtPane = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Intereses");
+        setAlwaysOnTop(true);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(24, 153, 233));
@@ -43,6 +46,7 @@ public class RecordInterest extends javax.swing.JFrame {
         jLabel1.setText("Intereses Registrados");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        txtPane.setEditable(false);
         jScrollPane1.setViewportView(txtPane);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -65,6 +69,7 @@ public class RecordInterest extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

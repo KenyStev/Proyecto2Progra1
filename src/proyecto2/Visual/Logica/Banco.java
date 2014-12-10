@@ -449,23 +449,13 @@ public class Banco {
         }
     }
     
-    public void lookAccount(){
-        if(!activo.validateTipo(Usuario.LIMITADO)){
-            System.out.print("Ingrese el codigo de la cuenta:");
-            int num = scan.nextInt();
+    public boolean lookAccount(int num){
             int index = searchIndex(num, true);
             if(index>=0){
-                System.out.print("Desea desactivar la cuenta? (Si/No): ");
-                String resp = scan.next();
-                if(resp.equalsIgnoreCase("si")){
                     cuentas[index].disable();
-                }
-            }else{
-                System.out.println("\033[31mLa Cuenta no existe o esta desactivada!");
+                    return true;
             }
-        }else{
-            System.out.println("\033[31mNo tiene permisos para desctivar cuentas Ingeniero!");
-        }
+        return false;
     }
     
     public void cancelAccount(){
