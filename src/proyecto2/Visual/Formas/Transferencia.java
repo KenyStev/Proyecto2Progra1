@@ -7,6 +7,7 @@ package proyecto2.Visual.Formas;
 
 import javax.swing.JOptionPane;
 import proyecto2.Visual.Logica.SystemBanc;
+import proyecto2.Visual.Logica.Usuario;
 
 /**
  *
@@ -130,17 +131,23 @@ public class Transferencia extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int origen = Integer.parseInt(txtOrigen.getText()), destino = Integer.parseInt(txtDestino.getText());
-        double monto = Double.parseDouble(txtMonto.getText());
-        if(SystemBanc.bank.trasferBalance(origen, destino, monto)){
-            JOptionPane.showMessageDialog(this, "Transferido Exitosamente!", "Transferencia", JOptionPane.INFORMATION_MESSAGE);
-            new SystemBank().setVisible(true);
-            dispose();
+        if(!SystemBanc.bank.getActivo().validateTipo(Usuario.LIMITADO)){
+            int origen = Integer.parseInt(txtOrigen.getText()), destino = Integer.parseInt(txtDestino.getText());
+            double monto = Double.parseDouble(txtMonto.getText());
+            if(SystemBanc.bank.trasferBalance(origen, destino, monto)){
+                JOptionPane.showMessageDialog(this, "Transferido Exitosamente!", "Transferencia", JOptionPane.INFORMATION_MESSAGE);
+                new SystemBank().setVisible(true);
+                dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Error al transferir en cuenta!\nRecuerde que:\n-El usuario actual "
+                        + "no puede ser limitado.\n-El codigo y el monto deben ser positivos.\nEl codigo de origen y destino "
+                        + "no pueden ser el mismo","No Transferido",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
         else{
-            JOptionPane.showMessageDialog(this, "Error al transferir en cuenta!\nRecuerde que:\n-El usuario actual "
-                    + "no puede ser limitado.\n-El codigo y el monto deben ser positivos.\nEl codigo de origen y destino "
-                    + "no pueden ser el mismo","No Transferido",
+            JOptionPane.showMessageDialog(this, "Los usuarios limitados no tienen acceso a esta tarea", "Error de Usuario",
                     JOptionPane.ERROR_MESSAGE);
         }
         
