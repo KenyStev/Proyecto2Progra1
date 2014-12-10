@@ -107,6 +107,11 @@ public class SystemBank extends javax.swing.JFrame {
         });
 
         btnCancelAccount.setText("Cancelar Cuenta");
+        btnCancelAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelAccountActionPerformed(evt);
+            }
+        });
 
         btnCreateUser.setText("Crear Usuarios");
         btnCreateUser.addActionListener(new java.awt.event.ActionListener() {
@@ -253,6 +258,17 @@ public class SystemBank extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No tiene Permisos para Crear Desactivar Cuentas Ingeniero! ", "Error Crear Usuario", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnLookAccountActionPerformed
+
+    private void btnCancelAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelAccountActionPerformed
+        // TODO add your handling code here:
+        /*if(SystemBanc.validateUser(Usuario.ADMINISTRADOR)){
+            new CancelAccount().setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Solo un usuario administrador tiene acceso a cancelar cuenta!",
+                    "Acceso Denegado", JOptionPane.ERROR_MESSAGE);
+        }*/
+    }//GEN-LAST:event_btnCancelAccountActionPerformed
     
     
     /**
