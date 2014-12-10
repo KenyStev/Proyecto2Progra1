@@ -47,6 +47,7 @@ public class SystemBank extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu del Banco");
+        setBounds(new java.awt.Rectangle(500, 100, 0, 0));
 
         lblLogout.setFont(new java.awt.Font("DejaVu Sans Condensed", 3, 12)); // NOI18N
         lblLogout.setForeground(new java.awt.Color(54, 46, 254));
@@ -265,7 +266,7 @@ public class SystemBank extends javax.swing.JFrame {
             new LookAccount().setVisible(true);
             dispose();
         }else{
-            JOptionPane.showMessageDialog(this, "No tiene Permisos para Crear Desactivar Cuentas Ingeniero! ", "Error Crear Usuario", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No tiene Permisos para Desactivar Cuentas Ingeniero! ", "Error Crear Usuario", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnLookAccountActionPerformed
 

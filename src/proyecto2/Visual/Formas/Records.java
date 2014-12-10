@@ -42,6 +42,7 @@ public class Records extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Reportes");
+        setBounds(new java.awt.Rectangle(500, 100, 0, 0));
 
         btnPerfil.setText("Perfil");
         btnPerfil.addActionListener(new java.awt.event.ActionListener() {

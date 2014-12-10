@@ -52,6 +52,7 @@ public class AgregarCuenta extends javax.swing.JFrame {
         );
 
         setTitle("AGREGAR UNA CUENTA");
+        setBounds(new java.awt.Rectangle(500, 100, 0, 0));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel1.setText("Nombre del cliente:");

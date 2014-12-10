@@ -45,6 +45,7 @@ public class Profile extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(500, 100, 0, 0));
 
         jLabel1.setText("Nombre:");
 

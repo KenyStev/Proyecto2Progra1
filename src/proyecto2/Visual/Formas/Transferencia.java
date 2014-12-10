@@ -54,6 +54,7 @@ public class Transferencia extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TRANSFERENCIA A TERCEROS");
+        setBounds(new java.awt.Rectangle(500, 100, 0, 0));
 
         jLabel1.setFont(new java.awt.Font("Sylfaen", 3, 18)); // NOI18N
         jLabel1.setText("<--BACK");
